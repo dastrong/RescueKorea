@@ -41,7 +41,7 @@ const Footer = () => (
           ☕
         </span>{" "}
         by some{" "}
-        <a href="https://github.com/chingu-voyages/geckos-project-16">
+        <a href="https://github.com/dastrong/RescueKorea">
           <span role="img" aria-label="gecko">
             🦎
           </span>
