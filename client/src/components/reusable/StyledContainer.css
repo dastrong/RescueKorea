@@ -1,0 +1,52 @@
+.styled-container {
+  text-align: center;
+}
+
+.styled-container label {
+  text-align: left;
+}
+
+.styled-container .topHeader.ui.header {
+  max-width: 300px;
+  margin: 0 auto 14px;
+}
+
+.styled-container .btmHeader.ui.header {
+  margin: 14px auto 14px !important;
+}
+
+.styled-container .btmHeader.ui.header,
+.styled-container .btmHeader.ui.header > * {
+  color: #d52484;
+}
+
+.styled-container .ui.form label {
+  color: #3d0043 !important;
+}
+.styled-container .ui.form label::after {
+  color: #d52484 !important;
+}
+
+.styled-container .ui.message {
+  margin: 14px auto;
+}
+
+@media screen and (min-width: 768px) {
+  .styled-container.ui.container {
+    max-width: 725px !important;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .styled-container.ui.container {
+    max-width: 475px !important;
+    width: 100% !important;
+  }
+  .styled-container .ui.button {
+    width: 100%;
+  }
+  .styled-container .ui.form.error .compact.error.message:not(:empty) {
+    display: block;
+  }
+}

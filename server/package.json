@@ -1,0 +1,27 @@
+{
+  "name": "chingupets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "offline": "sls offline start --skipCacheInvalidation"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cloudinary": "^1.13.2",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.3",
+    "mongoose-unique-validator": "^2.0.2",
+    "serverless-http": "^1.8.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^3.32.1"
+  }
+}

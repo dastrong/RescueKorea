@@ -1,0 +1,42 @@
+.form.ui.form.auth-form .ui.input {
+  margin: 5px auto;
+}
+
+.form.ui.form.auth-form input,
+.form.ui.form.auth-form button {
+  min-height: 50px;
+  margin: 0;
+}
+
+.auth-form a {
+  color: #d52484;
+}
+
+.ui.button[type="submit"] {
+  min-width: 200px;
+}
+
+.social-auth.ui.button {
+  width: calc(50% - 5px);
+  min-width: 205px;
+  margin: 5px 0;
+  min-height: 50px;
+}
+
+.social-auth.ui.google {
+  margin-left: 10px;
+}
+
+.recaptcha > div > div {
+  margin: 0 auto 1em;
+}
+
+@media screen and (max-width: 767px) {
+  .social-auth.ui.button {
+    width: 100%;
+    margin: 5px 0;
+  }
+  .social-auth.ui.google {
+    margin-left: 0;
+  }
+}

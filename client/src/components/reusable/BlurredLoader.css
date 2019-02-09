@@ -1,0 +1,8 @@
+.customized.dimmable {
+  width: 100%;
+  min-height: 300px;
+}
+
+.customized .ui.dimmer {
+  z-index: 100;
+}

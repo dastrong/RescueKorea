@@ -1,0 +1,45 @@
+.thumbnails.ui.images {
+  margin: 15px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumbnails.ui.images .ui.segment {
+  margin: 0 15px !important;
+  padding: 7px;
+}
+
+.thumbnails.ui.images .ui.image {
+  margin: 0;
+}
+
+.create-listing-btn {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 !important;
+}
+
+.create-listing-btn button.ui.button {
+  margin: 14px 0 0;
+}
+
+.ui.input.error > input {
+  background: #fff6f6 !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38 !important;
+  border-radius: "";
+  box-shadow: none !important;
+}
+
+.error.required.field .ui.fluid.dropdown .text {
+  color: rgba(159, 58, 56, 0.4) !important;
+}
+
+@media screen and (max-width: 767px) {
+  .create-listing-checks {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}

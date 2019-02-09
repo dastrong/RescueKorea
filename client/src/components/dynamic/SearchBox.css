@@ -1,0 +1,99 @@
+#search-container.ui.segment {
+  border-radius: 10px;
+}
+
+#search-container h1 {
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+#search-container .ui.accordion .icon.huge {
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.3s;
+  transform: scale(0.5);
+}
+
+#search-container .ui.accordion .icon.huge:hover {
+  transform: scale(0.6);
+}
+
+#search-container h3 {
+  margin: 0 0 5px 26px;
+  text-transform: uppercase;
+  padding: 10px 0 0;
+  text-decoration: underline;
+}
+
+#search-container .ui.button.show-more-btn {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 10px;
+  margin: 0 0 -10px;
+  width: 120px;
+  color: #3d0043;
+}
+
+#search-container .ui.button.show-more-btn .icon {
+  margin: 2px 0 0;
+}
+
+#search-container button {
+  margin: 14px 0 0;
+  width: 100%;
+  max-width: 225px;
+}
+
+/* ============= */
+/* CONSISTENT UX */
+/* ============= */
+#search-container .ui.loading.form:before {
+  background: #d52484;
+}
+
+#search-container .ui.loading.form:after {
+  border-color: #ffffff rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+}
+
+.ui.checkbox input:checked ~ .box:before,
+.ui.checkbox input:checked ~ label:before {
+  background: #3d0043 !important;
+  border-color: #fff !important;
+}
+
+.ui.checkbox input:checked ~ .box:after,
+.ui.checkbox input:checked ~ label:after {
+  color: #fff !important;
+}
+
+/* ============= */
+/* MEDIA QUERIES */
+/* ============= */
+@media only screen and (max-width: 767px) {
+  #search-container .ui.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #search-container .ui.form .grouped.fields {
+    width: 50%;
+    min-width: 150px;
+    max-width: 200px;
+    padding: 0 15px;
+    margin: 0 15px 1em;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  #search-container .ui.form .grouped.fields {
+    max-width: 200px;
+    margin: 0 0 1em;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #search-container .ui.accordion .title {
+    cursor: default;
+  }
+}
