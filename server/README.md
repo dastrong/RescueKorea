@@ -2,7 +2,7 @@
 
 The site was made during my first [Chingu](https://chingu.io/) experience.
 Live site: [here](https://rescuekorea.netlify.com)
-Client code: [here](https://github.com/chingu-voyages/geckos-project-16)
+Client code: [here](https://github.com/chingu-voyages/geckos-project-16) and/or [here](https://github.com/dastrong/RescueKorea/tree/master/client)
 
 ### Built the following:
 

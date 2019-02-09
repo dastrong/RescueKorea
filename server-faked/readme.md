@@ -1,4 +1,4 @@
-# Random Data For [ChinguDogs](https://github.com/chingu-voyages/geckos-project-16)
+# Fake/Mock Server For Rescue Korea
 
 Created using [json-server](https://www.npmjs.com/package/json-server) and [Faker](https://www.npmjs.com/package/faker). Thank you to [this](https://egghead.io/lessons/javascript-creating-demo-apis-with-json-server) video.
 
