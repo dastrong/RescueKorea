@@ -135,7 +135,7 @@ export default class AccordionExampleStyled extends Component {
               </List.Item>
               <List.Item as="li" className="listing-policy-item">
                 <span className="policy-heading">How to edit/delete your account?</span>{" "}
-                Please visit contact us for assistance with this.
+                Please contact us for assistance with this.
               </List.Item>
             </List>
           </Accordion.Content>
