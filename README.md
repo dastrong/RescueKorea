@@ -21,3 +21,4 @@ This was my first **team** project through [Chingu](https://chingu.io/). I was c
 ### Want to contribute?
 
 I'd gladly look over any PR's, if you'd like to contribute and improve the site. Specifically, I'm hoping someone can help translate the site into Korean to spread it's impact even further
+ 
