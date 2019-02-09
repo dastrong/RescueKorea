@@ -123,23 +123,24 @@ export default class AccordionExampleStyled extends Component {
             onClick={this.handleClick}
           >
             <Icon name="dropdown" />
-            How to Edit & Delete a Listing
+            Account and Listing Help
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <List>
-              <List.Item className="listing-policy-item">
+            <List as="ul" className="listing-policy-items">
+              <List.Item as="li" className="listing-policy-item">
+                <span className="policy-heading">How to edit/delete your listing?</span>{" "}
                 Log into your account and go to your listing. Scroll to the bottom and
                 click the edit or delete button. *Listings are automatically deleted after
                 90 days of creation*
+              </List.Item>
+              <List.Item as="li" className="listing-policy-item">
+                <span className="policy-heading">How to edit/delete your account?</span>{" "}
+                Please visit contact us for assistance with this.
               </List.Item>
             </List>
           </Accordion.Content>
         </Accordion>
       </StyledContainer>
-      // <Container>
-      //   <Segment inverted color="pink" className="lp-segment">
-      //   </Segment>
-      // </Container>
     );
   }
 }
