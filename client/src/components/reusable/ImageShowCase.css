@@ -1,7 +1,3 @@
-.img-showcase.ui.modal {
-  position: static;
-}
-
 .img-showcase.ui.modal > .image.content {
   justify-content: center;
 }
