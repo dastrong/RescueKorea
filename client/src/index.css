@@ -17,6 +17,10 @@ body {
   box-shadow: 0 0 8px #90007f;
 }
 
+.ui.modal {
+  position: static !important;
+}
+
 a {
   border-bottom: none !important;
 }
