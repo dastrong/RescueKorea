@@ -24,7 +24,7 @@ const Routes = ({ handleUser, updatePosts, user, posts, isLoading }) => (
           </Helmet>
           <FeaturedPosts
             // pass the last 4 posts down
-            posts={posts.slice(posts.length <= 4 ? 0 : posts.length - 4)}
+            posts={posts.slice(posts.length <= 4 ? 0 : posts.length - 4).reverse()}
             totalPostsLength={posts.length}
           />
         </Fragment>
