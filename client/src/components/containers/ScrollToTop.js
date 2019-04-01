@@ -1,38 +1,24 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { throttle } from "lodash";
 import { Icon } from "semantic-ui-react";
 import "./ScrollToTop.css";
 
-class ScrollToTop extends Component {
-  state = { isVisible: false };
+export default function ScrollToTop() {
+  const [isVisible, toggle] = useState(window.scrollY > 0);
 
-  componentDidMount() {
-    document.addEventListener("scroll", throttle(this.handleScroll, 1000));
-  }
-  componentWillUnmount() {
-    document.removeEventListener("scroll", this.handleScroll);
-  }
+  const shouldToggle = () => toggle(window.scrollY);
 
-  handleScroll = () => {
-    if (!window.scrollY) return this.setState({ isVisible: false });
-    if (this.state.isVisible) return;
-    this.setState({ isVisible: true });
-  };
+  useEffect(() => document.addEventListener("scroll", throttle(shouldToggle, 1000)), []);
 
-  handleClick = () => window.scrollTo(0, 0);
+  const handleClick = () => window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
-  render() {
-    return (
-      this.state.isVisible && (
-        <Icon
-          name="angle double up"
-          color="olive"
-          onClick={this.handleClick}
-          className="scroll-to-top"
-        />
-      )
-    );
-  }
+  return (
+    <Icon
+      name="angle double up"
+      color="olive"
+      onClick={handleClick}
+      className="scroll-to-top"
+      style={isVisible ? { opacity: 1, cursor: "pointer" } : { visibility: "hidden" }}
+    />
+  );
 }
-
-export default ScrollToTop;
