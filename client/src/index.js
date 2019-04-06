@@ -1,18 +1,33 @@
 import "@babel/polyfill";
 import "react-app-polyfill/ie11";
-import React from "react";
-import { render } from "react-snapshot";
-import "./index.css";
-import NavBar from "./components/containers/NavBar";
-import { BrowserRouter as Router } from "react-router-dom";
-import * as serviceWorker from "./serviceWorker";
 import "./semantic/dist/semantic.min.css";
+import React, { useEffect } from "react";
+import { render } from "react-snapshot";
+import ReactGA from "react-ga";
+import App from "./containers/App";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
+import * as serviceWorker from "./serviceWorker";
+import "./index.css";
+import { getListings } from "./store/actions/listings";
 
-const Site = () => (
-  <Router>
-    <NavBar />
-  </Router>
-);
+function Site() {
+  useEffect(() => {
+    // load our analytics
+    ReactGA.initialize(process.env.REACT_APP_ANALYTICS_KEY);
+    // wakes up the server and grab all listings
+    store.dispatch(getListings());
+  }, []);
+
+  return (
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  );
+}
 
 render(<Site />, document.getElementById("root"));
 

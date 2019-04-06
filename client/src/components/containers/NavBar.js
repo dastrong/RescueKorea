@@ -1,141 +1,122 @@
-import React, { Component } from "react";
-import { Menu, Sidebar } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
-import ReactGA from "react-ga";
-import BlurredLoader from "../reusable/BlurredLoader";
-import SiteContent from "./SiteContent";
-import ScrollToTop from "./ScrollToTop";
-import { verifyUser } from "../../helpers/auth";
-import { fetcher } from "../../helpers";
-import { trackGooPage } from "../../helpers/analytics";
+import React, { useState } from "react";
+import { Menu, Sidebar, Transition } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 
-export default withRouter(
-  class NavBar extends Component {
-    state = { user: null, posts: [], isLoading: true };
+export default function NavBar() {
+  const [isLeftVisible, toggleLeft] = useState(false);
+  const [isRightVisible, toggleRight] = useState(false);
 
-    // check if there's a user and get all posts on loading
-    // instead of repeated calls to our API, which is on a free tier
-    // we'll make one fetch here and then pass down through props
-    async componentDidMount() {
-      ReactGA.initialize(process.env.REACT_APP_ANALYTICS_KEY);
-      const page = this.props.location.pathname;
-      trackGooPage(page);
-      try {
-        // checks if user is in localStorage
-        const user = await verifyUser();
-        const resp = await fetcher("/posts", {});
-        const posts = await resp.json();
-        if (!resp.ok) throw posts;
-        this.setState({ user, posts, isLoading: false });
-      } catch (err) {
-        console.log(err);
-        this.setState({ isLoading: false }, () => this.props.history.push("/error"));
-      }
+  // opens a menu after closing an open one first if needed
+  const toggleMenus = async (left, right) => {
+    if (isLeftVisible && right) {
+      (await toggleLeft(!isLeftVisible)) && toggleRight(!isRightVisible);
     }
 
-    componentDidUpdate(prevProps) {
-      const lastPage = prevProps.location.pathname;
-      const currentPage = this.props.location.pathname;
-      if (currentPage === lastPage) return;
-      trackGooPage(currentPage);
+    if (isRightVisible && left) {
+      (await toggleRight(!isRightVisible)) && toggleLeft(!isLeftVisible);
     }
 
-    updatePosts = () => {
-      this.setState({ isLoading: true }, async () => {
-        try {
-          const resp = await fetcher("/posts", {});
-          const posts = await resp.json();
-          if (!resp.ok) throw posts;
-          this.setState({ posts, isLoading: false });
-        } catch (err) {
-          console.log(err);
-          this.setState({ isLoading: false }, () => this.props.history.push("/error"));
-        }
-      });
-    };
-
-    handleLogout = () => this.setState({ user: null }, localStorage.clear());
-
-    handleUser = user => this.setState({ user });
-
-    render() {
-      const { isLoading } = this.state;
-      return (
-        <BlurredLoader isLoading={isLoading}>
-          <ScrollToTop />
-          <NavBarHolder
-            {...this.state}
-            handleUser={this.handleUser}
-            handleLogout={this.handleLogout}
-            updatePosts={this.updatePosts}
-          />
-        </BlurredLoader>
-      );
-    }
-  }
-);
-
-class NavBarHolder extends Component {
-  state = { visible: false };
-
-  handlePusher = () => {
-    if (!this.state.visible) return;
-    this.setState({ visible: false });
+    left ? toggleLeft(!isLeftVisible) : toggleRight(!isRightVisible);
   };
 
-  handleToggle = () => this.setState({ visible: !this.state.visible });
-
-  render() {
-    const { visible } = this.state;
-    const { handleUser, handleLogout, updatePosts, ...state } = this.props;
-    return (
-      <Sidebar.Pushable>
-        <Sidebar as={Menu} animation="overlay" icon="labeled" vertical visible={visible}>
-          <MenuItems items={leftItems} />
-        </Sidebar>
-        <Sidebar.Pusher
-          dimmed={visible}
-          animation={"overlay"}
-          onClick={this.handlePusher}
-          style={{ minHeight: "100vh" }}
-        >
-          <Menu fixed="top">
-            <Menu.Item onClick={this.handleToggle} icon="sidebar" />
-            <MenuItems
-              items={rightItems}
-              user={state.user}
-              handleLogout={handleLogout}
-              position="right"
-            />
-          </Menu>
-          <SiteContent handleUser={handleUser} updatePosts={updatePosts} {...state} />
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-    );
-  }
+  return (
+    <>
+      <Menu borderless fixed="top">
+        <Menu.Item
+          onClick={() => toggleMenus(true, false)}
+          icon={isLeftVisible ? "close" : "sidebar"}
+        />
+        <Link to="/" className="nav-header">
+          <img
+            src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_100/v1554289935/petChingus/UX/NavHeaderRK.png"
+            alt="header"
+          />
+        </Link>
+        <Menu.Item
+          onClick={() => toggleMenus(false, true)}
+          icon={isRightVisible ? "close" : "user"}
+        />
+      </Menu>
+      <Sidebar
+        as=""
+        animation="overlay"
+        direction="top"
+        visible={isLeftVisible || isRightVisible}
+      >
+        <Transition.Group className="nav-sidebar">
+          {isLeftVisible && (
+            <NavMenu items={navi} closeMenu={() => toggleMenus(true, false)} />
+          )}
+          {isRightVisible && (
+            // SWITCH
+            // <NavMenu
+            //   // determines which menu items to show
+            //   items={user ? authed : noAuth}
+            //   closeMenu={() => toggleMenus(false, true)}
+            // />
+            <NavMenu items={noAuth} closeMenu={() => toggleMenus(false, true)} />
+          )}
+        </Transition.Group>
+      </Sidebar>
+    </>
+  );
 }
 
-// maps over items array props and returns menu items
-const MenuItems = ({ items, position, user, handleLogout }) => (
-  <Menu.Menu position={position}>
-    {user ? (
-      <Menu.Item as="a" onClick={handleLogout} content="Logout" />
-    ) : (
-      items.map(item => <Menu.Item {...item} />)
-    )}
-  </Menu.Menu>
+const NavMenu = ({ items, closeMenu }) => (
+  <div className="nav-sidebar-menu">
+    {items.map(item => (
+      <NavMenuItem closeMenu={closeMenu} {...item} />
+    ))}
+  </div>
+);
+
+const NavMenuItem = ({ imgURL, closeMenu, ...props }) => (
+  <Link {...props} onClick={closeMenu} className="nav-sidebar-menu-link">
+    <img src={imgURL} alt={props.key} />
+  </Link>
 );
 
 // Used to create menu items
-const leftItems = [
-  { as: Link, to: "/", icon: "paw", key: "home" },
-  { as: Link, to: "/listings", content: "View Listings", key: "listings" },
-  { as: Link, to: "/create", content: "Create Listing", key: "createListing" },
-  { as: Link, to: "/listingpolicy", content: "Listing Policy", key: "listingPolicy" },
-  { as: Link, to: "/contactus", content: "Contact Us", key: "contactus" },
+const imgURL = "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,w_150/";
+const navi = [
+  {
+    to: "/listings",
+    key: "listings",
+    imgURL: `${imgURL}v1554374548/petChingus/UX/View_Listings.png`,
+  },
+  {
+    to: "/create",
+    key: "createListing",
+    imgURL: `${imgURL}v1554373425/petChingus/UX/Create_Listing.png`,
+  },
+  {
+    to: "/listingpolicy",
+    key: "listingPolicy",
+    imgURL: `${imgURL}v1554373424/petChingus/UX/Listing_Policy.png`,
+  },
+  {
+    to: "/contactus",
+    key: "contactus",
+    imgURL: `${imgURL}v1554373424/petChingus/UX/Contact_Us.png`,
+  },
 ];
-const rightItems = [
-  { as: Link, to: "/login", content: "Login", key: "login" },
-  { as: Link, to: "/signup", content: "Register", key: "register" },
+const noAuth = [
+  {
+    to: "/login",
+    key: "login",
+    imgURL: `${imgURL}v1554373425/petChingus/UX/Log_In.png`,
+  },
+  {
+    to: "/signup",
+    key: "signup",
+    imgURL: `${imgURL}v1554373425/petChingus/UX/Sign_Up.png`,
+  },
+];
+const authed = [
+  {
+    to: "/",
+    key: "logout",
+    imgURL: `${imgURL}v1554373425/petChingus/UX/Log_Out.png`,
+  },
 ];
