@@ -25,55 +25,54 @@ const quotes = [
   "The smallest feline is a masterpiece.",
 ];
 
-export default function BillBoard() {
+function CustomQuote() {
   const [ind, toggle] = React.useState(randomQuote());
 
   return (
-    <StyledContainer
-      topHeader="The New Rescue Korea"
-      btmHeader={
-        <p style={pStyle} onClick={() => toggle(randomQuote)}>
-          {quotes[ind]}
-        </p>
-      }
-    >
-      <Grid columns={2} stackable textAlign="center" style={{ margin: "10px 0 0" }}>
-        <Grid.Row verticalAlign="middle">
-          <Grid.Column>
-            <Header icon>
-              <Icon name="search" style={icnStyle} />
-              Looking to adopt?
-              <Button
-                as={Link}
-                to="/listings"
-                size="large"
-                color="blue"
-                content="View Listings"
-                style={btnStyle}
-              />
-            </Header>
-          </Grid.Column>
-          <Grid.Column>
-            <Header icon>
-              <Icon name="upload" style={icnStyle} />
-              Have an animal to share?
-              <Button
-                as={Link}
-                to="/create"
-                size="large"
-                color="green"
-                content="Create Listing"
-                style={btnStyle}
-              />
-            </Header>
-          </Grid.Column>
-          <Responsive minWidth="768">
-            <Divider vertical style={divStyle}>
-              Or
-            </Divider>
-          </Responsive>
-        </Grid.Row>
-      </Grid>
-    </StyledContainer>
+    <p style={pStyle} onClick={() => toggle(randomQuote)}>
+      {quotes[ind]}
+    </p>
   );
 }
+
+export default () => (
+  <StyledContainer topHeader="The New Rescue Korea" btmHeader={<CustomQuote />}>
+    <Grid columns={2} stackable textAlign="center" style={{ margin: "10px 0 0" }}>
+      <Grid.Row verticalAlign="middle">
+        <Grid.Column>
+          <Header icon>
+            <Icon name="search" style={icnStyle} />
+            Looking to adopt?
+            <Button
+              as={Link}
+              to="/listings"
+              size="large"
+              color="blue"
+              content="View Listings"
+              style={btnStyle}
+            />
+          </Header>
+        </Grid.Column>
+        <Grid.Column>
+          <Header icon>
+            <Icon name="upload" style={icnStyle} />
+            Have an animal to share?
+            <Button
+              as={Link}
+              to="/create"
+              size="large"
+              color="green"
+              content="Create Listing"
+              style={btnStyle}
+            />
+          </Header>
+        </Grid.Column>
+        <Responsive minWidth="768">
+          <Divider vertical style={divStyle}>
+            Or
+          </Divider>
+        </Responsive>
+      </Grid.Row>
+    </Grid>
+  </StyledContainer>
+);
