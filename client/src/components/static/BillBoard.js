@@ -7,6 +7,7 @@ const randomQuote = () => Math.floor(Math.random() * (quotes.length - 1));
 const btnStyle = { margin: "10px 0 -10px", width: "200px", display: "block" };
 const icnStyle = { marginBottom: "10px", fontSize: "2.5em" };
 const divStyle = { height: "35%" };
+const pStyle = { userSelect: "none", cursor: "pointer" };
 const quotes = [
   "A dog is the only thing on earth that loves you more than he loves himself.",
   "Happiness is a warm puppy.",
@@ -31,10 +32,7 @@ export default function BillBoard() {
     <StyledContainer
       topHeader="The New Rescue Korea"
       btmHeader={
-        <p
-          style={{ userSelect: "none", cursor: "pointer" }}
-          onClick={() => toggle(randomQuote)}
-        >
+        <p style={pStyle} onClick={() => toggle(randomQuote)}>
           {quotes[ind]}
         </p>
       }
