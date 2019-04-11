@@ -2,11 +2,6 @@
   border-radius: 10px;
 }
 
-#search-container h1 {
-  max-width: 150px;
-  margin: 0 auto;
-}
-
 #search-container .ui.accordion .icon.huge {
   width: 100%;
   cursor: pointer;
@@ -48,11 +43,11 @@
 /* ============= */
 /* CONSISTENT UX */
 /* ============= */
-#search-container .ui.loading.form:before {
-  background: #d52484;
+#search-container.ui.loading:before {
+  background: #f185b3;
 }
 
-#search-container .ui.loading.form:after {
+#search-container.ui.loading:after {
   border-color: #ffffff rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
 }
 
