@@ -48,7 +48,6 @@ function stripListings(listings) {
 
 // defaultly exported component
 function ListingsPage({ listings, isLoading }) {
-  console.log(isLoading);
   const [activePage, setPage] = useState(1);
   const [checkedFilters, setFilters] = useState({});
   const [filteredListings, setListings] = useState(listings);
