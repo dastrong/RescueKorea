@@ -26,11 +26,11 @@ export default ({ showPlaceholders, listings }) => (
             button={{ to: "#", loading: true, content: "" }}
           />
         ))
-      : listings.map(({ _id, images, petName, location, gender }) => (
+      : listings.map(({ _id, image, petName, location, gender }) => (
           <CardComponent
             key={_id}
             id={_id}
-            image={<ImgWithPlaceHolder src={images[0].url} alt={petName} />}
+            image={<ImgWithPlaceHolder src={image} alt={petName} />}
             petName={petName}
             gender={
               <>
