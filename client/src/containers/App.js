@@ -9,7 +9,7 @@ import ScrollToTop from "../components/containers/ScrollToTop";
 export default () => (
   <>
     <NavBar />
-    {/* <Routes /> */}
+    <Routes />
     <Disclaimer />
     <Footer />
     <ScrollToTop />
