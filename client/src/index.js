@@ -17,7 +17,7 @@ function Site() {
     // load our analytics
     ReactGA.initialize(process.env.REACT_APP_ANALYTICS_KEY);
     // wakes up the server and grab all listings
-    store.dispatch(getListings());
+    setTimeout(() => store.dispatch(getListings()), 3000);
   }, []);
 
   return (
