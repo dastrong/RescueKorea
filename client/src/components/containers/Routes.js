@@ -1,70 +1,25 @@
-import React, { Fragment } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import React from "react";
+// import React, { Fragment } from "react";
+import { Route, Switch } from "react-router-dom";
+// import { Route, Switch, Redirect } from "react-router-dom";
+// import { Helmet } from "react-helmet";
 import ListingPolicy from "../static/ListingPolicy";
 import ErrorNotFound from "../static/ErrorNotFound";
+import BillBoard from "../static/BillBoard";
 import AuthHolder from "../dynamic/AuthHolder";
-import FeaturedPosts from "../dynamic/FeaturedPosts";
-import LatestListings from "../dynamic/LatestListings";
-import ViewListingHolder from "../dynamic/ViewListingHolder";
-import ListingFormHolder from "../dynamic/ListingFormHolder";
+// import FeaturedPosts from "../dynamic/FeaturedPosts";
+import ListingsPage from "../../containers/ListingsPage";
+// import ViewListingHolder from "../dynamic/ViewListingHolder";
+// import ListingFormHolder from "../dynamic/ListingFormHolder";
 import ContactForm from "../dynamic/ContactForm";
 
-const Routes = ({ handleUser, updatePosts, user, posts, isLoading }) => (
-  <Switch>
-    <Route
-      exact
-      path="/"
-      render={() => (
-        <Fragment>
-          <Helmet>
-            <title>Adopt a Korean Pet || Home</title>
-            <meta name="keywords" content="Adopt,Pet,Korean animals,Adopt a Korean Pet" />
-            <meta name="description" content="Adopt a Korean pet today" />
-          </Helmet>
-          <FeaturedPosts
-            // pass the last 4 posts down
-            posts={posts.slice(posts.length <= 4 ? 0 : posts.length - 4).reverse()}
-            totalPostsLength={posts.length}
-          />
-        </Fragment>
-      )}
-    />
-    <Route
-      exact
-      path="/login"
-      render={() => (
-        <Fragment>
-          <Helmet>
-            <title>Adopt a Korean Pet || Login</title>
-            <meta name="keywords" content="Adopt,Pet,Korean animals,Adopt a Korean Pet" />
-            <meta
-              name="description"
-              content="Login to your account here to adopt a Korean pet today"
-            />
-          </Helmet>
-          <AuthHolder handleUser={handleUser} />
-        </Fragment>
-      )}
-    />
-    <Route
-      exact
-      path="/signup"
-      render={() => (
-        <Fragment>
-          <Helmet>
-            <title>Adopt a Korean Pet || Register</title>
-            <meta name="keywords" content="Adopt,Pet,Korean animals,Adopt a Korean Pet" />
-            <meta
-              name="description"
-              content="Register here to adopt a Korean pet today"
-            />
-          </Helmet>
-          <AuthHolder handleUser={handleUser} />
-        </Fragment>
-      )}
-    />
-    <Route
+const Routes = () => (
+  <section className="top-section" style={{ marginTop: "65px", padding: "25px 0" }}>
+    <Switch>
+      <Route exact path="/" component={BillBoard} />
+      <Route exact path="/login" component={AuthHolder} />
+      <Route exact path="/signup" component={AuthHolder} />
+      {/* <Route
       exact
       path="/listing/:id"
       render={({ match, history }) => {
@@ -89,9 +44,9 @@ const Routes = ({ handleUser, updatePosts, user, posts, isLoading }) => (
             />
           </Fragment>
         );
-      }}
-    />
-    <Route
+      }} */}
+      />
+      {/* <Route
       exact
       path="/listing/:id/edit"
       render={({ match, history }) => {
@@ -123,56 +78,11 @@ const Routes = ({ handleUser, updatePosts, user, posts, isLoading }) => (
           </Fragment>
         );
       }}
-    />
-    <Route
-      exact
-      path="/listingpolicy"
-      render={() => (
-        <Fragment>
-          <Helmet>
-            <title>Adopt a Korean Pet || Listing Policy</title>
-            <meta name="keywords" content="Adopt,Pet,Korean animals,Adopt a Korean Pet" />
-            <meta
-              name="description"
-              content="Our listing policy which should be read by everybody wanting to list a Korean pet for adoption"
-            />
-          </Helmet>
-          <ListingPolicy />
-        </Fragment>
-      )}
-    />
-    <Route
-      exact
-      path="/listings"
-      render={() => (
-        <Fragment>
-          <Helmet>
-            <title>Adopt a Korean Pet || View Listings</title>
-            <meta name="keywords" content="Adopt,Pet,Korean animals,Adopt a Korean Pet" />
-            <meta
-              name="description"
-              content="View, search and filter all of our Korean pet listings"
-            />
-          </Helmet>
-          <LatestListings posts={posts} />
-        </Fragment>
-      )}
-    />
-    <Route
-      exact
-      path="/contactus"
-      render={() => (
-        <Fragment>
-          <Helmet>
-            <title>Adopt a Korean Pet || Contact Us</title>
-            <meta name="keywords" content="Adopt,Pet,Korean animals,Adopt a Korean Pet" />
-            <meta name="description" content="Contact us" />
-          </Helmet>
-          <ContactForm user={user} />
-        </Fragment>
-      )}
-    />
-    <Route
+    /> */}
+      <Route exact path="/listingpolicy" component={ListingPolicy} />
+      <Route exact path="/listings" component={ListingsPage} />
+      <Route exact path="/contactus" component={ContactForm} />
+      {/* <Route
       exact
       path="/create"
       render={({ history }) =>
@@ -200,9 +110,10 @@ const Routes = ({ handleUser, updatePosts, user, posts, isLoading }) => (
           </Fragment>
         )
       }
-    />
-    <Route component={ErrorNotFound} />
-  </Switch>
+    /> */}
+      <Route component={ErrorNotFound} />
+    </Switch>
+  </section>
 );
 
 export default Routes;
