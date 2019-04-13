@@ -1,10 +1,17 @@
 import React, { useState, useLayoutEffect } from "react";
 import { Header, Icon, Segment, Form, Accordion, Button } from "semantic-ui-react";
-import SearchBoxContent from "./SearchBoxContent";
+import SearchBoxContent from "./ListingsFilterBoxContent";
 import useScreenSize from "../../hooks/useScreenSize";
-import "./SearchBox.css";
+import "./ListingsFilterBox.css";
 
-export default function SearchBox(props) {
+export default function ListingsFilterBox({
+  areBoxesEmpty,
+  searchParams,
+  checkedObj,
+  searchChange,
+  searchClear,
+  isLoading,
+}) {
   const isMobile = useScreenSize();
   const [isOpen, toggle] = useState(isMobile);
 
@@ -21,9 +28,8 @@ export default function SearchBox(props) {
     toggle(!isOpen);
   }
 
-  const { areBoxesEmpty, searchParams, checkedObj, searchChange, searchClear } = props;
   return (
-    <Segment loading={props.loading} inverted color="pink" id="search-container">
+    <Segment loading={isLoading} inverted color="pink" id="search-container">
       <Accordion>
         <Accordion.Title onClick={handleClick} style={{ textAlign: "center" }}>
           <Icon color="violet" size="big" name="filter" fitted />
