@@ -5,7 +5,7 @@ import StyledContainer from "./StyledContainer";
 
 const EmptyPlaceholder = () => (
   <StyledContainer
-    topHeader="No Posts Found"
+    topHeader="No Listings Found"
     btmHeader="Check back later or create a listing for your pet"
   >
     <Button
