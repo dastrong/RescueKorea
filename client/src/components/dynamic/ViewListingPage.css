@@ -30,6 +30,10 @@
   margin: 0;
 }
 
+.listing-container img {
+  cursor: pointer;
+}
+
 /* ==== */
 /* INFO */
 /* ==== */
