@@ -9,14 +9,22 @@ export default function NavBar() {
 
   // opens a menu after closing an open one first if needed
   const toggleMenus = async (left, right) => {
+    // if user clicks the nav header closes any open
+    if (!left && !right) {
+      return isLeftVisible ? toggleLeft(false) : toggleRight(false);
+    }
+
+    // closes the left menu and opens the right menu
     if (isLeftVisible && right) {
       (await toggleLeft(!isLeftVisible)) && toggleRight(!isRightVisible);
     }
 
+    // closes the right menu and opens the left menu
     if (isRightVisible && left) {
       (await toggleRight(!isRightVisible)) && toggleLeft(!isLeftVisible);
     }
 
+    // just opens a menu
     left ? toggleLeft(!isLeftVisible) : toggleRight(!isRightVisible);
   };
 
@@ -27,7 +35,7 @@ export default function NavBar() {
           onClick={() => toggleMenus(true, false)}
           icon={isLeftVisible ? "close" : "sidebar"}
         />
-        <Link to="/" className="nav-header">
+        <Link to="/" onClick={() => toggleMenus()} className="nav-header">
           <img
             src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_100/v1554289935/petChingus/UX/NavHeaderRK.png"
             alt="header"
