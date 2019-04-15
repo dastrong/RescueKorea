@@ -1,31 +1,16 @@
 import React from "react";
-import { Grid, Placeholder, Icon } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 import CardComponent from "./CardComponent";
 import ImgWithPlaceHolder from "./ImgWithPlaceholder";
+import { CardPlaceholder } from "./Placeholders";
 
-const LoaderLine = ({ length }) => (
-  <Placeholder>
-    <Placeholder.Line length={length} />
-  </Placeholder>
-);
+// how many placeholder cards?
+const numOfCards = 6;
 
 export default ({ showPlaceholders, listings }) => (
   <Grid style={{ justifyContent: "center" }}>
     {showPlaceholders
-      ? Array.from(Array(6)).map((q, i) => (
-          <CardComponent
-            key={`temp-${i}`}
-            image={
-              <Placeholder style={{ maxWidth: "100%" }}>
-                <Placeholder.Image rectangular />
-              </Placeholder>
-            }
-            petName={<LoaderLine length="long" />}
-            gender={<LoaderLine length="short" />}
-            location={<LoaderLine length="medium" />}
-            button={{ to: "#", loading: true, content: "" }}
-          />
-        ))
+      ? Array.from(Array(numOfCards)).map((q, i) => <CardPlaceholder key={`temp-${i}`} />)
       : listings.map(({ _id, image, petName, location, gender }) => (
           <CardComponent
             key={_id}
