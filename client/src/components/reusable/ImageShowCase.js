@@ -15,7 +15,7 @@ export default function({ targetImgId, isOpen, closeImageShowCase, images }) {
   const handleNext = () => setImgId((imgId + images.length - 1) % images.length);
 
   return (
-    <Modal basic open={isOpen} dimmer={false} className="img-showcase">
+    <Modal basic open={isOpen} className="img-showcase">
       <Modal.Content image>
         <Segment inverted color="olive">
           <ImgWithPlaceholder src={images[imgId]} alt={"pet-" + imgId} />
