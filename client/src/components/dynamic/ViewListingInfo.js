@@ -1,65 +1,85 @@
 import React from "react";
 import { Grid, Segment, Header, Icon, Divider } from "semantic-ui-react";
 
-export default props => (
-  <Grid.Column stretched width={7}>
-    <Segment inverted color="pink">
-      <Header as="h1" dividing textAlign="center">
-        Hey! I'm <span style={{ color: "#3d0043" }}>{props.petName}</span>.
-      </Header>
-      <div className="listing-details">
-        {mainDetails.map(info => (
-          <Item {...info} content={props[info.key]} className="listing-details-item" />
-        ))}
-        <Item
-          label={props.gender === "Male" ? "Neutered" : "Spayed"}
-          content={
-            <Icon
-              name={props.spayed ? "check" : "times"}
-              color={props.spayed ? "green" : "red"}
-            />
-          }
-          className="listing-details-item"
-        />
-        <Item
-          label="Vaccinated"
-          content={
-            <Icon
-              name={props.vaccinated ? "check" : "times"}
-              color={props.vaccinated ? "green" : "red"}
-            />
-          }
-          className="listing-details-item"
-        />
-      </div>
-      <Divider />
-      <ProfileHolder {...props} />
-    </Segment>
-  </Grid.Column>
+function getIconDeets(isLoading, prop) {
+  return isLoading ? ["spinner", "purple"] : prop ? ["check", "green"] : ["times", "red"];
+}
+
+export default ({ spayed, vaccinated, petName, goodWith, trained, ...otherInfo }) => {
+  const isLoading = spayed === null;
+  const [spayedIcnName, spayedIcnColor] = getIconDeets(isLoading, spayed);
+  const [vaccinIcnName, vaccinIcnColor] = getIconDeets(isLoading, vaccinated);
+  return (
+    <Grid.Column stretched width={7}>
+      <Segment inverted color="pink">
+        <PetNameHolder petName={petName} isLoading={isLoading} />
+        <div className="listing-details">
+          <InfoHolder otherInfo={otherInfo} />
+          <ImportantInfoHolder
+            label={otherInfo.gender === "Male" ? "Neutered" : "Spayed"}
+            iconName={spayedIcnName}
+            iconColor={spayedIcnColor}
+            isLoading={isLoading}
+          />
+          <ImportantInfoHolder
+            label="Vaccinated"
+            iconName={vaccinIcnName}
+            iconColor={vaccinIcnColor}
+            isLoading={isLoading}
+          />
+        </div>
+        <Divider />
+        <ProfileHolder goodWith={goodWith} trained={trained} isLoading={isLoading} />
+      </Segment>
+    </Grid.Column>
+  );
+};
+
+const PetNameHolder = ({ isLoading, petName }) => (
+  <Header as="h1" dividing textAlign="center">
+    {!isLoading ? (
+      <>
+        Hey! I'm <span style={{ color: "#3d0043" }}>{petName}</span>.
+      </>
+    ) : (
+      petName
+    )}
+  </Header>
 );
 
-const ProfileHolder = props => (
+const InfoHolder = ({ otherInfo }) =>
+  mainDetails.map(info => (
+    <Item {...info} content={otherInfo[info.key]} className="listing-details-item" />
+  ));
+
+const ImportantInfoHolder = ({ isLoading, label, iconName, iconColor }) => (
+  <Item
+    label={label}
+    content={<Icon loading={isLoading} name={iconName} color={iconColor} />}
+    className="listing-details-item"
+  />
+);
+
+const ProfileHolder = ({ goodWith, trained, isLoading }) => (
   <div className="extra-details">
     <Header as="h3" color="violet" textAlign="center" content="My Interaction Profile" />
-    <Profile details={goodWithDetails} checkedVals={props.goodWith} />
+    <Profile details={goodWithDetails} checked={goodWith} isLoading={isLoading} />
     <Divider />
     <Header as="h3" color="violet" textAlign="center" content="My Training Profile" />
-    <Profile details={trainedDetails} checkedVals={props.trained} />
+    <Profile details={trainedDetails} checked={trained} isLoading={isLoading} />
   </div>
 );
 
-const Profile = ({ details, checkedVals }) => (
+const Profile = ({ details, checked, isLoading }) => (
   <div className="listing-details">
     {details.map(info => {
-      const [name, color] = checkedVals.includes(info.label)
-        ? ["check", "green"]
-        : ["times", "red"];
+      const [name, color] = getIconDeets(isLoading, checked.includes(info.label));
       return (
         <Item
           key={info.key}
           className="extra-details-item"
           label={info.label}
-          content={<Icon name={name} color={color} />}
+          content={<Icon loading={isLoading} name={name} color={color} />}
         />
       );
     })}

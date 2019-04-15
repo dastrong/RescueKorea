@@ -55,7 +55,11 @@ class ViewListingAction extends Component {
                     Adoption Fee:
                     <Header.Subheader
                       content={
-                        adoptionFee ? `${adoptionFee.toLocaleString()}` : "No Charge!"
+                        typeof adoptionFee !== "number"
+                          ? adoptionFee
+                          : adoptionFee
+                          ? `${adoptionFee.toLocaleString()}`
+                          : "No Charge!"
                       }
                     />
                   </Header.Content>

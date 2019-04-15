@@ -11,7 +11,7 @@ export default ({ petInfo, openImageShowCase, user, handleDelete }) => (
     <Grid stackable>
       <Grid.Row columns={16}>
         <ViewListingImages
-          images={petInfo.images || []}
+          images={petInfo.images}
           openImageShowCase={openImageShowCase}
         />
         <ViewListingInfo {...petInfo} />
