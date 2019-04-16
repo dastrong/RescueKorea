@@ -1,3 +1,7 @@
+.ui.dimmer {
+  z-index: 111111;
+}
+
 .img-showcase.ui.modal > .image.content {
   justify-content: center;
 }

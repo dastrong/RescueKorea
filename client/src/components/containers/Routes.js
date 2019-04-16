@@ -9,7 +9,7 @@ import BillBoard from "../static/BillBoard";
 import AuthHolder from "../dynamic/AuthHolder";
 // import FeaturedPosts from "../dynamic/FeaturedPosts";
 import ListingsPage from "../../containers/ListingsPage";
-// import ViewListingHolder from "../dynamic/ViewListingHolder";
+import ViewListingHolder from "../dynamic/ViewListingHolder";
 // import ListingFormHolder from "../dynamic/ListingFormHolder";
 import ContactForm from "../dynamic/ContactForm";
 
@@ -19,32 +19,33 @@ const Routes = () => (
       <Route exact path="/" component={BillBoard} />
       <Route exact path="/login" component={AuthHolder} />
       <Route exact path="/signup" component={AuthHolder} />
-      {/* <Route
-      exact
-      path="/listing/:id"
-      render={({ match, history }) => {
-        const post = posts.filter(post => post._id === match.params.id);
-        return (
-          <Fragment>
-            <Helmet>
-              <title>Adopt a Korean Pet || View Pet</title>
-              <meta
-                name="keywords"
-                content="Adopt,Pet,Korean animals,Adopt a Korean Pet"
-              />
-              <meta name="description" content="View one of our Korean pet listings" />
-            </Helmet>
-            <ViewListingHolder
-              user={user}
-              isLoading={isLoading}
-              post={post}
-              match={match}
-              history={history}
-              updatePosts={updatePosts}
-            />
-          </Fragment>
-        );
-      }} */}
+      <Route
+        exact
+        path="/listing/:id"
+        component={ViewListingHolder}
+        // render={({ match, history }) => {
+        //   const post = posts.filter(post => post._id === match.params.id);
+        //   return (
+        //     <Fragment>
+        //       <Helmet>
+        //         <title>Adopt a Korean Pet || View Pet</title>
+        //         <meta
+        //           name="keywords"
+        //           content="Adopt,Pet,Korean animals,Adopt a Korean Pet"
+        //         />
+        //         <meta name="description" content="View one of our Korean pet listings" />
+        //       </Helmet>
+        //       <ViewListingHolder
+        //         user={user}
+        //         isLoading={isLoading}
+        //         post={post}
+        //         match={match}
+        //         history={history}
+        //         updatePosts={updatePosts}
+        //       />
+        //     </Fragment>
+        //   );
+        // }}
       />
       {/* <Route
       exact
