@@ -81,7 +81,10 @@ function ListingsPage({ listings, isLoading }) {
     handleState(newCheckedFilters, filteredListings);
   }
 
-  const handlePageChange = (e, { activePage }) => setPage(activePage);
+  const handlePageChange = (e, { activePage }) => {
+    window.scrollTo(0, 0);
+    setPage(activePage);
+  };
 
   const totalPages = Math.ceil(filteredListings.length / perPage);
   const lastItemNum = activePage * perPage;
