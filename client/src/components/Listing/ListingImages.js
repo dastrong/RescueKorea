@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Segment, Image } from "semantic-ui-react";
-import ImgWithPlaceholder from "../reusable/ImgWithPlaceholder";
+import ImgWithPlaceholder from "../_reusable/ImgWithPlaceholder";
 
-const ViewListingImages = ({ images, openImageShowCase }) => {
+const ListingImages = ({ images, openImageShowCase }) => {
   const isThereImages = !!images.length;
   const primaryImgUrl = isThereImages ? images[0] : "";
   const secondImgUrls = isThereImages ? images.slice(1) : [];
@@ -41,4 +41,4 @@ const ViewListingImages = ({ images, openImageShowCase }) => {
   );
 };
 
-export default ViewListingImages;
+export default ListingImages;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import StyledContainer from "../reusable/StyledContainer";
+import StyledContainer from "../_reusable/StyledContainer";
 import { Grid, Button, Icon, Header, Divider, Responsive } from "semantic-ui-react";
 
 const randomQuote = () => Math.floor(Math.random() * (quotes.length - 1));

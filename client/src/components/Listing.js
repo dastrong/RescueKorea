@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ImageShowCase from "../reusable/ImageShowCase";
-import ViewListingPage from "../dynamic/ViewListingPage";
-import { fetcher } from "../../helpers";
-import { addGooEvent } from "../../helpers/analytics";
-import { listingPlaceholderObj } from "../reusable/Placeholders";
+import { Grid, Container } from "semantic-ui-react";
+import ListingImages from "./Listing/ListingImages";
+import ListingInfo from "./Listing/ListingInfo";
+import ListingStory from "./Listing/ListingStory";
+import ListingContact from "./Listing/ListingContact";
+import ImageShowCase from "./_reusable/ImageShowCase";
+import { listingPlaceholderObj } from "./_reusable/Placeholders";
+import { fetcher } from "../helpers";
+import { addGooEvent } from "../helpers/analytics";
+import "./Listing.css";
 
-function ListingPage({ listing, history, ...props }) {
-  const isLoading = true;
-  // function ListingPage({ listing, isLoading, history, ...props }) {
+function Listing({ listing, isLoading, history, ...props }) {
   const [isShowCaseOpen, toggleShowCase] = React.useState(false);
   const [targetImgId, setTargetImgId] = React.useState(0);
   const [petInfo, setPetInfo] = React.useState(listingPlaceholderObj);
@@ -46,12 +49,28 @@ function ListingPage({ listing, history, ...props }) {
 
   return (
     <div className="listing-container">
-      <ViewListingPage
-        user={props.user}
-        petInfo={petInfo}
-        openImageShowCase={openShowCase}
-        handleDelete={handleDelete}
-      />
+      <Container>
+        <Grid stackable>
+          <Grid.Row columns={16}>
+            <ListingImages images={petInfo.images} openImageShowCase={openShowCase} />
+            <ListingInfo {...petInfo} />
+            <ListingStory story={petInfo.description} />
+            <ListingContact
+              isOwner={
+                props.user &&
+                (props.user.isAdmin || props.user.userId === petInfo.owner.id)
+              }
+              postId={petInfo._id}
+              petName={petInfo.petName}
+              mainImg={petInfo.images[0]}
+              contactName={petInfo.owner.name}
+              contactEmail={petInfo.owner.email}
+              adoptionFee={petInfo.adoptionFee}
+              handleDelete={handleDelete}
+            />
+          </Grid.Row>
+        </Grid>
+      </Container>
       <ImageShowCase
         images={petInfo.images}
         isOpen={isShowCaseOpen}
@@ -73,4 +92,4 @@ const mapStateToProps = (state, { match }) => ({
 //   // deleting the post
 // };
 
-export default connect(mapStateToProps)(ListingPage);
+export default connect(mapStateToProps)(Listing);

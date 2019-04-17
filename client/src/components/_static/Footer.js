@@ -7,7 +7,7 @@ const Footer = () => (
   <Segment inverted color="purple" vertical id="footer">
     <Container>
       <List horizontal>
-        <List.Item as={Link} to="/contactus">
+        <List.Item as={Link} to="/contact">
           Contact Us
         </List.Item>
       </List>
@@ -26,7 +26,7 @@ const Footer = () => (
         <List.Item as={Link} to="/listings">
           View Listings
         </List.Item>
-        <List.Item as={Link} to="/listingpolicy">
+        <List.Item as={Link} to="/policy">
           Listing Policy
         </List.Item>
       </List>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
-import StyledContainer from "../reusable/StyledContainer";
+import StyledContainer from "./_reusable/StyledContainer";
 
 const encode = data => {
   return Object.keys(data)
@@ -8,7 +8,7 @@ const encode = data => {
     .join("&");
 };
 
-class ContactForm extends Component {
+class Contact extends Component {
   state = {
     name: "",
     email: "",
@@ -114,4 +114,4 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+export default Contact;

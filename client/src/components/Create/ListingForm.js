@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
 import ListingFormFields from "./ListingFormFields";
-import FormMessages from "../reusable/FormMessages";
+import FormMessages from "../_reusable/FormMessages";
 import {
   cloudinaryOptions,
   checkRequiredFields,

@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
-import StyledContainer from "../reusable/StyledContainer";
-import LogInForm from "./LogInForm";
-import SignUpForm from "./SignUpForm";
-import "./AuthHolder.css";
+import StyledContainer from "./_reusable/StyledContainer";
+import LogInForm from "./Auth/LogInForm";
+import SignUpForm from "./Auth/SignUpForm";
+import "./Auth.css";
 
 const AuthHolder = ({ match, handleUser }) => {
   const isLogin = match.url.slice(1) === "login";

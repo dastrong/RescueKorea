@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Grid, Segment, Header, Label, Confirm } from "semantic-ui-react";
 
-class ViewListingAction extends Component {
+class ListingContact extends Component {
   state = { open: false };
 
   open = () => this.setState({ open: true });
@@ -162,4 +162,4 @@ const getSocialShareBtns = (href, img) => {
   ];
 };
 
-export default ViewListingAction;
+export default ListingContact;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Accordion, Icon, List } from "semantic-ui-react";
-import StyledContainer from "../reusable/StyledContainer";
-import "./ListingPolicy.css";
+import StyledContainer from "../_reusable/StyledContainer";
+import "./Policy.css";
 
-export default class AccordionExampleStyled extends Component {
+export default class Policy extends Component {
   state = { activeIndex: -1 };
 
   handleClick = (e, { index }) => {

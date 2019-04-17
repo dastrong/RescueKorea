@@ -1,10 +1,10 @@
 import React from "react";
 import { Placeholder } from "semantic-ui-react";
-import CardComponent from "./CardComponent";
+import StyledCard from "./StyledCard";
 
 // ListingsPage
 export const CardPlaceholder = () => (
-  <CardComponent
+  <StyledCard
     image={
       <Placeholder style={{ maxWidth: "100%" }}>
         <Placeholder.Image rectangular />
@@ -51,7 +51,7 @@ export const listingPlaceholderObj = () => {
   };
 };
 
-// CardList
+// Cards
 const LoaderLine = ({ length }) => (
   <Placeholder>
     <Placeholder.Line length={length} />

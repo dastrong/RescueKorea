@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Segment, Header, Button, Grid } from "semantic-ui-react";
-import "./CardComponent.css";
+import "./StyledCard.css";
 
-const CardComponent = ({ image, petName, gender, location, button }) => (
+const StyledCard = ({ image, petName, gender, location, button }) => (
   <Grid.Column mobile={16} tablet={8} computer={5}>
     <Segment inverted color="pink" className="individual-card">
       <Card fluid>
@@ -25,4 +25,4 @@ const CardComponent = ({ image, petName, gender, location, button }) => (
   </Grid.Column>
 );
 
-export default CardComponent;
+export default StyledCard;

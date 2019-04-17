@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Grid, Container } from "semantic-ui-react";
-import CardList from "../components/reusable/CardList";
-import EmptyPlaceholder from "../components/reusable/EmptyPlaceholder";
-import ListingsFilterBox from "../components/dynamic/ListingsFilterBox";
-import ListingsPagination from "../components/dynamic/ListingsPagination";
+import Cards from "./_reusable/Cards";
+import EmptyPlaceholder from "./_static/EmptyPlaceholder";
+import ListingsFilterBox from "./Listings/ListingsFilterBox";
+import ListingsPagination from "./Listings/ListingsPagination";
 
 const perPage = 6;
 const labels = ["location", "gender", "breed", "color"];
@@ -47,7 +47,7 @@ function stripListings(listings) {
 }
 
 // defaultly exported component
-function ListingsPage({ listings, isLoading }) {
+function Listings({ listings, isLoading }) {
   const [activePage, setPage] = useState(1);
   const [checkedFilters, setFilters] = useState({});
   const [filteredListings, setListings] = useState(listings);
@@ -106,12 +106,12 @@ function ListingsPage({ listings, isLoading }) {
         )}
         <Grid.Column width={12}>
           {isLoading ? (
-            <CardList showPlaceholders={true} />
+            <Cards showPlaceholders={true} />
           ) : !filteredListings.length ? (
             <EmptyPlaceholder />
           ) : (
             <>
-              <CardList listings={currentPageListings} />
+              <Cards listings={currentPageListings} />
               <ListingsPagination
                 activePage={activePage}
                 totalPages={totalPages}
@@ -130,4 +130,4 @@ const mapStateToProps = state => ({
   isLoading: state.ui.isListingsLoading,
 });
 
-export default connect(mapStateToProps)(ListingsPage);
+export default connect(mapStateToProps)(Listings);

@@ -3,7 +3,7 @@ import { Form, Divider, Button, Message } from "semantic-ui-react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
 import { fetcher } from "../../helpers";
-import FormMessages from "../reusable/FormMessages";
+import FormMessages from "../_reusable/FormMessages";
 import { addGooEvent } from "../../helpers/analytics";
 
 const initialState = {

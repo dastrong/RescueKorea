@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Icon } from "semantic-ui-react";
-import CardComponent from "./CardComponent";
+import StyledCard from "./StyledCard";
 import ImgWithPlaceHolder from "./ImgWithPlaceholder";
 import { CardPlaceholder } from "./Placeholders";
 
@@ -12,7 +12,7 @@ export default ({ showPlaceholders, listings }) => (
     {showPlaceholders
       ? Array.from(Array(numOfCards)).map((q, i) => <CardPlaceholder key={`temp-${i}`} />)
       : listings.map(({ _id, image, petName, location, gender }) => (
-          <CardComponent
+          <StyledCard
             key={_id}
             id={_id}
             image={<ImgWithPlaceHolder src={image} alt={petName} />}

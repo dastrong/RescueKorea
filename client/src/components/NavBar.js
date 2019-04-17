@@ -99,13 +99,13 @@ const navi = [
     imgURL: `${imgURL}v1554373425/petChingus/UX/Create_Listing.png`,
   },
   {
-    to: "/listingpolicy",
+    to: "/policy",
     key: "listingPolicy",
     imgURL: `${imgURL}v1554373424/petChingus/UX/Listing_Policy.png`,
   },
   {
-    to: "/contactus",
-    key: "contactus",
+    to: "/contact",
+    key: "contact",
     imgURL: `${imgURL}v1554373424/petChingus/UX/Contact_Us.png`,
   },
 ];

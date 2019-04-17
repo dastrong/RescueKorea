@@ -2,15 +2,15 @@ import "@babel/polyfill";
 import "react-app-polyfill/ie11";
 import "./semantic/dist/semantic.min.css";
 import React, { useEffect } from "react";
-import { render } from "react-snapshot";
 import ReactGA from "react-ga";
-import App from "./containers/App";
+import { render } from "react-snapshot";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
+import App from "./components/App";
 import store from "./store";
+import { getListings } from "./store/actions/listings";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
-import { getListings } from "./store/actions/listings";
 
 function Site() {
   useEffect(() => {

@@ -4,7 +4,7 @@ import { Form, Input, Message, Checkbox } from "semantic-ui-react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { validateEmail } from "../../helpers";
 import { fetcher } from "../../helpers";
-import FormMessages from "../reusable/FormMessages";
+import FormMessages from "../_reusable/FormMessages";
 import { addGooEvent } from "../../helpers/analytics";
 
 const initialState = {

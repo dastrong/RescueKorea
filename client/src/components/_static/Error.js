@@ -1,8 +1,8 @@
 import React from "react";
 import { Image } from "semantic-ui-react";
-import StyledContainer from "../reusable/StyledContainer";
+import StyledContainer from "../_reusable/StyledContainer";
 
-const ErrorNotFound = () => (
+const Error = () => (
   <StyledContainer
     topHeader="We're Sorry!"
     btmHeader="Something went wrong or we couldn't find what you're looking for"
@@ -11,4 +11,4 @@ const ErrorNotFound = () => (
   </StyledContainer>
 );
 
-export default ErrorNotFound;
+export default Error;
