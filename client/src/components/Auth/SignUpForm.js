@@ -1,213 +1,164 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Input, Message, Checkbox } from "semantic-ui-react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { validateEmail } from "../../helpers";
-import { fetcher } from "../../helpers";
 import FormMessages from "../_reusable/FormMessages";
+import useFormState from "../../hooks/useFormState";
+import useFormIcons from "../../hooks/useFormIcons";
+import useFormStatus from "../../hooks/useFormStatus";
+import { fetcher } from "../../helpers/api";
+import { validateEmail } from "../../helpers";
 import { addGooEvent } from "../../helpers/analytics";
+import { handleLogin } from "../../store/actions/user";
 
-const initialState = {
-  email: "",
-  fullName: "",
-  password: "",
-  confirmPassword: "",
-  isAgreed: false,
-  passwordsMatch: null,
-  isRealEmail: null,
-  isProcessing: false,
-  successStatus: null,
-  errorStatus: null,
-  activeUser: null,
-  errorMsg: null,
-  validCaptcha: false,
-};
+const initState = { email: "", fullName: "", password: "", confirmPassword: "" };
+const initStatus = { successStatus: null, errorStatus: null, errorMsg: null };
+const initIcn = { name: "asterisk", color: "red" };
+const succIcn = { name: "check", color: "green" };
+const initPwIcn = { name: "lock open", color: "red" };
+const succPwIcn = { name: "lock", color: "green" };
 
-class SignUpForm extends Component {
-  state = initialState;
+function SignUp({ handleLogin }) {
+  const [validCaptcha, setCaptcha] = useState(false);
+  const [isAgreed, toggleIsAgreed] = useState(false);
+  const [activeUser, setActiveUser] = useState("");
 
-  comparePasswords = () => {
-    const { password, confirmPassword, passwordsMatch } = this.state;
-    const isOneEmpty = !password || !confirmPassword;
-    if (isOneEmpty && passwordsMatch === null) return;
-    isOneEmpty || password.length !== confirmPassword.length
-      ? this.setState({ passwordsMatch: null })
-      : this.setState({ passwordsMatch: password === confirmPassword });
-  };
+  const { state, isProcessing, ...func } = useFormState(initState, login);
+  const { email, fullName, password, confirmPassword } = state;
 
-  handleChange = (e, { name, checked, value }) => {
-    const newVal = name === "isAgreed" ? checked : value;
-    const isRealEmail = name === "email" ? validateEmail(value) : this.state.isRealEmail;
-    this.setState({ [name]: newVal, isRealEmail }, this.comparePasswords);
-  };
+  const { status, setStatus } = useFormStatus(initStatus);
+  const { successStatus, errorStatus, errorMsg } = status;
 
-  handleSignUp = async () => {
+  const isRealEmail = validateEmail(email);
+  const isValidPass = password.length > 7 && password === confirmPassword;
+  const [emIcon, emColor] = useFormIcons(isRealEmail, initIcn, succIcn);
+  const [fnIcon, fnColor] = useFormIcons(!!fullName, initIcn, succIcn);
+  const [pwIcon, pwColor] = useFormIcons(isValidPass, initPwIcn, succPwIcn);
+
+  async function login() {
     try {
-      const { fullName, password, email } = this.state;
-      const resp = await fetcher("/users/signup", {
-        method: "post",
-        body: JSON.stringify({
-          fullName,
-          email,
-          password,
-        }),
-      });
+      const body = JSON.stringify({ email, fullName, password });
+      const resp = await fetcher("/users/signup", { method: "POST", body });
       const user = await resp.json();
-      if (!resp.ok) {
-        throw user.errors[Object.keys(user.errors)[0]];
-      }
-      addGooEvent("Auth", "Signup Successful");
+      if (!resp.ok) throw user.errors[Object.keys(user.errors)[0]];
       localStorage.setItem("user", JSON.stringify(user));
-      this.setState(
-        {
-          ...initialState,
-          successStatus: true,
-          activeUser: user.fullName,
-        },
-        () => this.props.handleUser(user)
-      );
+      addGooEvent("Auth", "Signup Successful");
+      setStatus({ ...initStatus, successStatus: true });
+      setActiveUser(user.fullName);
+      func.resetState();
+      func.setProcessing(false);
+      // send user to redux store
+      handleLogin(user);
     } catch (err) {
+      console.log(err);
       addGooEvent("Auth", "Signup Failed");
-      this.setState({
-        ...initialState,
+      setStatus({
+        ...initStatus,
         errorStatus: true,
         errorMsg: err.message,
       });
+      func.setProcessing(false);
     }
-  };
+  }
 
-  handleSubmit = e => {
-    addGooEvent("Auth", "Signup Attemped");
-    e.preventDefault();
-    this.setState({ isProcessing: true }, this.handleSignUp);
-  };
-
-  successCaptcha = () => this.setState({ validCaptcha: true });
-  expiredCaptcha = () => this.setState({ validCaptcha: false });
-
-  render() {
-    const {
-      fullName,
-      email,
-      password,
-      confirmPassword,
-      passwordsMatch,
-      isAgreed,
-      successStatus,
-      errorStatus,
-      isProcessing,
-      activeUser,
-      errorMsg,
-      isRealEmail,
-      validCaptcha,
-    } = this.state;
-    // input label values
-    const [pwIcon, pwColor] =
-      passwordsMatch && password.length > 7 ? ["lock", "green"] : ["lock open", "red"];
-    const [fnIcon, fnColor] = fullName ? ["check", "green"] : ["asterisk", "red"];
-    const [emIcon, emColor] = isRealEmail ? ["check", "green"] : ["asterisk", "red"];
-    return (
-      <Form
-        loading={isProcessing}
-        className="auth-form"
-        success={successStatus}
-        error={errorStatus}
-        warning={passwordsMatch !== null && !passwordsMatch}
-        onSubmit={this.handleSubmit}
-      >
-        <Form.Group widths="equal">
-          <Form.Field>
-            <Input
-              label={{ icon: fnIcon, color: fnColor }}
-              labelPosition="right corner"
-              placeholder="Full Name"
-              name="fullName"
-              value={fullName}
-              onChange={this.handleChange}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Input
-              label={{ icon: emIcon, color: emColor }}
-              labelPosition="right corner"
-              placeholder="Email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={this.handleChange}
-            />
-          </Form.Field>
-        </Form.Group>
-        <Form.Group widths="equal">
-          <Form.Field>
-            <Input
-              label={{ icon: pwIcon, color: pwColor }}
-              labelPosition="right corner"
-              type="password"
-              placeholder="Password (min. 8 characters)"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Input
-              label={{ icon: pwIcon, color: pwColor }}
-              labelPosition="right corner"
-              type="password"
-              placeholder="Confirm Password (min. 8 characters)"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={this.handleChange}
-            />
-          </Form.Field>
-        </Form.Group>
-        <Message
-          warning
-          hidden={passwordsMatch || passwordsMatch === null}
-          header="Passwords do not match"
-        />
-        <Form.Field inline required>
-          <Checkbox
-            name="isAgreed"
-            checked={isAgreed}
-            onClick={this.handleChange}
-            label={
-              <label>
-                I Agree to the <Link to="/listingpolicy">Listing Policies</Link>
-              </label>
-            }
+  return (
+    <Form
+      loading={isProcessing}
+      className="auth-form"
+      success={successStatus}
+      error={errorStatus}
+      warning={!isValidPass && password.length > 7 && confirmPassword.length > 7}
+      onSubmit={func.handleSubmit}
+    >
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Input
+            label={{ icon: fnIcon, color: fnColor }}
+            labelPosition="right corner"
+            placeholder="Full Name"
+            name="fullName"
+            value={fullName}
+            onChange={func.handleChange}
           />
         </Form.Field>
-        <ReCAPTCHA
-          sitekey={process.env.REACT_APP_CAPTCHA_KEY}
-          onChange={this.successCaptcha}
-          onExpired={this.expiredCaptcha}
-          className="recaptcha"
-        />
-        <Form.Button
-          color="purple"
-          size="big"
-          type="submit"
-          content={isProcessing ? "Processing" : "Submit"}
-          disabled={
-            !isRealEmail ||
-            !fullName ||
-            !passwordsMatch ||
-            password.length < 8 ||
-            !isAgreed ||
-            !validCaptcha
+        <Form.Field>
+          <Input
+            label={{ icon: emIcon, color: emColor }}
+            labelPosition="right corner"
+            placeholder="Email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={func.handleChange}
+          />
+        </Form.Field>
+      </Form.Group>
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Input
+            label={{ icon: pwIcon, color: pwColor }}
+            labelPosition="right corner"
+            type="password"
+            placeholder="Password (min. 8 characters)"
+            name="password"
+            value={password}
+            onChange={func.handleChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Input
+            label={{ icon: pwIcon, color: pwColor }}
+            labelPosition="right corner"
+            type="password"
+            placeholder="Confirm Password (min. 8 characters)"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={func.handleChange}
+          />
+        </Form.Field>
+      </Form.Group>
+      <Message warning hidden={isValidPass} header="Passwords do not match" />
+      <Form.Field inline required>
+        <Checkbox
+          name="isAgreed"
+          checked={isAgreed}
+          onClick={() => toggleIsAgreed(!isAgreed)}
+          label={
+            <label>
+              I Agree to the <Link to="/policy">Listing Policies</Link>
+            </label>
           }
         />
-        <FormMessages
-          successStatus={successStatus}
-          successMsg={`Thanks for joining, ${activeUser}!`}
-          errorStatus={errorStatus}
-          errorMsg={errorMsg}
-        />
-      </Form>
-    );
-  }
+      </Form.Field>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_CAPTCHA_KEY}
+        onChange={() => setCaptcha(true)}
+        onExpired={() => setCaptcha(false)}
+        className="recaptcha"
+      />
+      <Form.Button
+        color="purple"
+        size="big"
+        type="submit"
+        content={isProcessing ? "Processing" : "Submit"}
+        // SWITCH - for production
+        // disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed || !validCaptcha}
+        disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed}
+      />
+      <FormMessages
+        successStatus={successStatus}
+        successMsg={`Thanks for joining, ${activeUser}!`}
+        errorStatus={errorStatus}
+        errorMsg={errorMsg}
+      />
+    </Form>
+  );
 }
 
-export default SignUpForm;
+const mapDispatchToProps = { handleLogin };
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp);
