@@ -31,6 +31,7 @@ function NavBar({ isAuthenticated, handleLogout }) {
   };
 
   function logout() {
+    localStorage.clear();
     handleLogout();
     toggleMenus(false, true);
   }
