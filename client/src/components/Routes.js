@@ -5,7 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import Policy from "./_static/Policy";
 import Error from "./_static/Error";
 import BillBoard from "./_static/BillBoard";
-import Auth from "./Auth";
+import LogIn from "./LogIn";
+import SignUp from "./SignUp";
 import Listings from "./Listings";
 import Listing from "./Listing";
 // import ListingFormHolder from "../dynamic/ListingFormHolder";
@@ -15,8 +16,8 @@ const Routes = () => (
   <section className="top-section" style={{ marginTop: "65px", padding: "25px 0" }}>
     <Switch>
       <Route exact path="/" component={BillBoard} />
-      <Route exact path="/login" component={Auth} />
-      <Route exact path="/signup" component={Auth} />
+      <Route exact path="/login" component={LogIn} />
+      <Route exact path="/signup" component={SignUp} />
       <Route exact path="/listing/:id" component={Listing} />
       {/* <Route
       exact

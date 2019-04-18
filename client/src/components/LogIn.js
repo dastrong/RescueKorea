@@ -1,14 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
 import { Form, Divider, Button, Message } from "semantic-ui-react";
-import FormMessages from "../_reusable/FormMessages";
-import useFormState from "../../hooks/useFormState";
-import useFormStatus from "../../hooks/useFormStatus";
-import { apiRequest } from "../../helpers/api";
-import { addGooEvent } from "../../helpers/analytics";
-import { handleLogin } from "../../store/actions/user";
+import StyledContainer from "./_reusable/StyledContainer";
+import FormMessages from "./_reusable/FormMessages";
+import useFormState from "../hooks/useFormState";
+import useFormStatus from "../hooks/useFormStatus";
+import { apiRequest } from "../helpers/api";
+import { addGooEvent } from "../helpers/analytics";
+import { handleLogin } from "../store/actions/user";
+import "./Auth.css";
 
 const initState = { email: "", password: "" };
 const initStatus = { successStatus: null, errorStatus: null, errorMsg: null };
@@ -62,7 +65,10 @@ function LogIn({ handleLogin }) {
   }
 
   return (
-    <Fragment>
+    <StyledContainer
+      topHeader="Log into your Account"
+      btmHeader={<Link to="/signup">No account? Register here.</Link>}
+    >
       <Form
         loading={isProcessing}
         className="auth-form"
@@ -141,7 +147,7 @@ function LogIn({ handleLogin }) {
         </Message.Content>
         <Message.Content>We don't save anything.</Message.Content>
       </Message>
-    </Fragment>
+    </StyledContainer>
   );
 }
 
