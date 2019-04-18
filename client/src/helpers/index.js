@@ -1,12 +1,3 @@
-// return a promise that we'll handle in our components
-export function fetcher(url, opts) {
-  return fetch(`${process.env.REACT_APP_API_ROUTE}${url}`, {
-    method: opts.method || "get",
-    headers: { "Content-Type": "application/json", ...opts.headers },
-    body: opts.body,
-  });
-}
-
 export function stringifyBody(state, owner) {
   const obj = {
     petName: state.petName,

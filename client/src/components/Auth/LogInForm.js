@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Form, Divider, Button, Message } from "semantic-ui-react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
-import { fetcher } from "../../helpers";
+import { fetcher } from "../../helpers/api";
 import FormMessages from "../_reusable/FormMessages";
 import { addGooEvent } from "../../helpers/analytics";
 

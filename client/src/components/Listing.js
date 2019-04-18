@@ -7,7 +7,7 @@ import ListingStory from "./Listing/ListingStory";
 import ListingContact from "./Listing/ListingContact";
 import ImageShowCase from "./_reusable/ImageShowCase";
 import { listingPlaceholderObj } from "./_reusable/Placeholders";
-import { fetcher } from "../helpers";
+import { fetcher } from "../helpers/api";
 import { addGooEvent } from "../helpers/analytics";
 import "./Listing.css";
 
