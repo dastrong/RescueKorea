@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Menu, Sidebar, Transition } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { handleLogout } from "../store/actions/user";
 import "./NavBar.css";
 
-export default function NavBar() {
+function NavBar({ isAuthenticated, handleLogout }) {
   const [isLeftVisible, toggleLeft] = useState(false);
   const [isRightVisible, toggleRight] = useState(false);
 
@@ -27,6 +29,11 @@ export default function NavBar() {
     // just opens a menu
     left ? toggleLeft(!isLeftVisible) : toggleRight(!isRightVisible);
   };
+
+  function logout() {
+    handleLogout();
+    toggleMenus(false, true);
+  }
 
   return (
     <>
@@ -57,13 +64,11 @@ export default function NavBar() {
             <NavMenu items={navi} closeMenu={() => toggleMenus(true, false)} />
           )}
           {isRightVisible && (
-            // SWITCH
-            // <NavMenu
-            //   // determines which menu items to show
-            //   items={user ? authed : noAuth}
-            //   closeMenu={() => toggleMenus(false, true)}
-            // />
-            <NavMenu items={noAuth} closeMenu={() => toggleMenus(false, true)} />
+            <NavMenu
+              // determines which menu items to show
+              items={isAuthenticated ? authed : noAuth}
+              closeMenu={isAuthenticated ? logout : () => toggleMenus(false, true)}
+            />
           )}
         </Transition.Group>
       </Sidebar>
@@ -71,6 +76,16 @@ export default function NavBar() {
   );
 }
 
+const mapStateToProps = state => ({ isAuthenticated: state.user.isAuthenticated });
+
+const mapDispatchToProps = { handleLogout };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar);
+
+// ========================================
 const NavMenu = ({ items, closeMenu }) => (
   <div className="nav-sidebar-menu">
     {items.map(item => (
