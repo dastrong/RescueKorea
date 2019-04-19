@@ -7,11 +7,12 @@ import ListingStory from "./Listing/ListingStory";
 import ListingContact from "./Listing/ListingContact";
 import ImageShowCase from "./_reusable/ImageShowCase";
 import { listingPlaceholderObj } from "./_reusable/Placeholders";
-import { fetcher } from "../helpers/api";
+import { apiRequest } from "../helpers/api";
 import { addGooEvent } from "../helpers/analytics";
+import { deleteListing } from "../store/actions/listings";
 import "./Listing.css";
 
-function Listing({ listing, isLoading, history, ...props }) {
+function Listing({ listing, isLoading, isOwner, user, history, deleteListing }) {
   const [isShowCaseOpen, toggleShowCase] = React.useState(false);
   const [targetImgId, setTargetImgId] = React.useState(0);
   const [petInfo, setPetInfo] = React.useState(listingPlaceholderObj);
@@ -28,24 +29,20 @@ function Listing({ listing, isLoading, history, ...props }) {
     setTargetImgId(Number(e.target.id));
   }
 
-  const handleDelete = async () => {
+  async function handleDelete() {
     try {
-      const resp = await fetcher(`/posts/${petInfo._id}`, {
+      const listing = await apiRequest(`/posts/${petInfo._id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${props.user.token}`,
-        },
+        headers: { Authorization: `Bearer ${user.token}` },
       });
-      const post = await resp.json();
-      if (!resp.ok) throw post;
       addGooEvent("Listing", "Deleted");
-      props.updatePosts();
       history.push("/");
+      deleteListing(listing._id);
     } catch (err) {
       console.log(err);
       history.push("/error");
     }
-  };
+  }
 
   return (
     <div className="listing-container">
@@ -56,10 +53,7 @@ function Listing({ listing, isLoading, history, ...props }) {
             <ListingInfo {...petInfo} />
             <ListingStory story={petInfo.description} />
             <ListingContact
-              isOwner={
-                props.user &&
-                (props.user.isAdmin || props.user.userId === petInfo.owner.id)
-              }
+              isOwner={isOwner}
               postId={petInfo._id}
               petName={petInfo.petName}
               mainImg={petInfo.images[0]}
@@ -81,15 +75,21 @@ function Listing({ listing, isLoading, history, ...props }) {
   );
 }
 
-const mapStateToProps = (state, { match }) => ({
-  listing: state.listings.filter(listing => listing._id === match.params.id),
-  isLoading: state.ui.isListingsLoading,
-  // get user data
-  // need to check if they're the owners of the listing or not
-});
+const mapStateToProps = ({ listings, ui, user }, { match }) => {
+  const listing = listings.filter(listing => listing._id === match.params.id);
+  return {
+    listing,
+    isLoading: ui.isListingsLoading,
+    isOwner:
+      user.isAuthenticated &&
+      (user.user.isAdmin || user.user.userId === listing[0].owner.id),
+    user: user.user,
+  };
+};
 
-// const mapDispatchToProps = {
-//   // deleting the post
-// };
+const mapDispatchToProps = { deleteListing };
 
-export default connect(mapStateToProps)(Listing);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Listing);
