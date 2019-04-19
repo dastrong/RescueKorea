@@ -6,7 +6,8 @@ export default function useFormState(initialState, callback) {
 
   const resetState = () => setState(initialState);
 
-  const handleChange = (e, { name, value }) => setState({ ...state, [name]: value });
+  const handleChange = (e, { name, value, checked }) =>
+    setState({ ...state, [name]: value || checked });
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -14,5 +15,13 @@ export default function useFormState(initialState, callback) {
     callback();
   };
 
-  return { state, isProcessing, setProcessing, handleChange, handleSubmit, resetState };
+  return {
+    state,
+    isProcessing,
+    setProcessing,
+    handleChange,
+    handleSubmit,
+    resetState,
+    setState,
+  };
 }

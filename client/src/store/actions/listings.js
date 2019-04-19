@@ -1,8 +1,8 @@
 import {
   SET_LISTINGS,
-  // CREATE_LISTING,
-  // UPDATE_LISTING,
-  // DELETE_LISTING,
+  CREATE_LISTING,
+  UPDATE_LISTING,
+  DELETE_LISTING,
 } from "../actionTypes";
 import { apiRequest } from "../../helpers/api";
 import { setListingsLoading } from "./ui";
@@ -12,17 +12,20 @@ const setListings = listings => ({
   listings,
 });
 
-// const handleCreateListing = () => ({
-//   type: CREATE_LISTING,
-// });
+export const createListing = listing => ({
+  type: CREATE_LISTING,
+  listing,
+});
 
-// const handleUpdateListing = () => ({
-//   type: UPDATE_LISTING,
-// });
+export const updateListing = listing => ({
+  type: UPDATE_LISTING,
+  listing,
+});
 
-// const handleDeleteListing = () => ({
-//   type: DELETE_LISTING,
-// });
+export const deleteListing = id => ({
+  type: DELETE_LISTING,
+  id,
+});
 
 export function getListings() {
   return async dispatch => {
@@ -30,33 +33,6 @@ export function getListings() {
       const listings = await apiRequest("/posts", {});
       dispatch(setListings(listings));
       dispatch(setListingsLoading(false));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-}
-
-export function createListing() {
-  return async dispatch => {
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  };
-}
-
-export function updateListing() {
-  return async dispatch => {
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  };
-}
-
-export function deleteListing() {
-  return async dispatch => {
-    try {
     } catch (err) {
       console.log(err);
     }

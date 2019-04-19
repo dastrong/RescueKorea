@@ -1,12 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  genderOpts,
-  typeOpts,
-  ageOpts,
-  sizeOpts,
-  goodWithOpts,
-  trainedOpts,
-} from "../../helpers/dropOpts";
+import * as opts from "../helpers/dropOpts";
 import {
   Form,
   Dropdown,
@@ -19,49 +12,49 @@ import {
   Button,
 } from "semantic-ui-react";
 
-const ListingFormFields = ({
+export default ({
   handleChange,
   handleSubmit,
   openImgWidget,
   handleImgDeletion,
   pronoun,
-  formErrors,
+  isFormFilled,
   errorStatus,
-  isEdit,
+  btnText,
   ...vals
 }) => (
   <Fragment>
     <Form.Group widths="equal">
       <Form.Select
         fluid
-        error={formErrors.includes("type")}
+        error={errorStatus && !vals.type}
         required
         label="Animal Type"
         name="type"
         placeholder="Animal Type"
-        options={typeOpts}
+        options={opts.typeOpts}
         value={vals.type}
         onChange={handleChange}
       />
       <Form.Select
         fluid
-        error={formErrors.includes("gender")}
+        error={errorStatus && !vals.gender}
         required
         label="Gender"
         name="gender"
         placeholder="Gender"
-        options={genderOpts}
+        options={opts.genderOpts}
         value={vals.gender}
         onChange={handleChange}
       />
       <Form.Select
         fluid
-        error={formErrors.includes("size")}
+        error={errorStatus && !vals.size}
         required
         label="Size"
         name="size"
         placeholder="Size"
-        options={sizeOpts}
+        options={opts.sizeOpts}
         value={vals.size}
         onChange={handleChange}
       />
@@ -71,7 +64,7 @@ const ListingFormFields = ({
         <label>Breed</label>
         <Input
           fluid
-          error={formErrors.includes("breed")}
+          error={errorStatus && !vals.breed}
           name="breed"
           placeholder="Breed"
           value={vals.breed}
@@ -82,7 +75,7 @@ const ListingFormFields = ({
         <label>Color</label>
         <Input
           fluid
-          error={formErrors.includes("color")}
+          error={errorStatus && !vals.color}
           name="color"
           placeholder="Color"
           value={vals.color}
@@ -93,13 +86,13 @@ const ListingFormFields = ({
         <label>Age</label>
         <Input
           fluid
-          error={formErrors.includes("ageNum")}
+          error={errorStatus && !vals.ageNum}
           name="ageNum"
           type="number"
           label={
             <Dropdown
               name="agePeriod"
-              options={ageOpts}
+              options={opts.ageOpts}
               value={vals.agePeriod}
               onChange={handleChange}
             />
@@ -118,7 +111,7 @@ const ListingFormFields = ({
         <label>Pet Name</label>
         <Input
           fluid
-          error={formErrors.includes("petName")}
+          error={errorStatus && !vals.petName}
           name="petName"
           placeholder="Pet Name"
           value={vals.petName}
@@ -129,7 +122,7 @@ const ListingFormFields = ({
         <label>Location</label>
         <Input
           fluid
-          error={formErrors.includes("location")}
+          error={errorStatus && !vals.location}
           name="location"
           value={vals.location}
           icon="map marker alternate"
@@ -142,7 +135,7 @@ const ListingFormFields = ({
         <label>Adoption Fee</label>
         <Input
           fluid
-          error={formErrors.includes("adoptionFee")}
+          error={errorStatus && !vals.adoptionFee}
           type="number"
           name="adoptionFee"
           value={vals.adoptionFee}
@@ -163,7 +156,7 @@ const ListingFormFields = ({
         value={vals.goodWith}
         name="goodWith"
         label="Interaction Profile"
-        options={goodWithOpts}
+        options={opts.goodWithOpts}
         placeholder={`${pronoun} good with _______`}
         onChange={handleChange}
       />
@@ -174,12 +167,12 @@ const ListingFormFields = ({
         value={vals.trained}
         name="trained"
         label="Training Profile"
-        options={trainedOpts}
+        options={opts.trainedOpts}
         placeholder={`${pronoun} been _______ trained`}
         onChange={handleChange}
       />
     </Form.Group>
-    <Form.Field required error={formErrors.includes("description")}>
+    <Form.Field required error={errorStatus && !vals.description}>
       <label>Additional Information</label>
       <TextArea
         value={vals.description}
@@ -225,7 +218,7 @@ const ListingFormFields = ({
       <Popup
         inverted
         header="Max 3 images (each <2MB)"
-        content="Complete other fields first"
+        content="Complete required fields first"
         trigger={
           <Button
             disabled={vals.images.length >= 3}
@@ -238,15 +231,13 @@ const ListingFormFields = ({
         }
       />
       <Button
-        disabled={!!formErrors.length && errorStatus}
+        disabled={errorStatus && !isFormFilled}
         size="big"
         color="green"
         icon="send"
-        content={`${isEdit ? "Edit" : "Create"} Listing`}
+        content={btnText}
         onClick={handleSubmit}
       />
     </Form.Field>
   </Fragment>
 );
-
-export default ListingFormFields;
