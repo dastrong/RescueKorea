@@ -72,7 +72,7 @@ function Update({ history, listing, user, updateListing }) {
       topHeader="Edit your Listing"
       btmHeader="Please fill in all required fields"
     >
-      <Form loading={isProcessing} error={errorStatus}>
+      <Form loading={isProcessing || !listing} error={errorStatus}>
         <ListingForm
           {...state}
           handleChange={func.handleChange}
