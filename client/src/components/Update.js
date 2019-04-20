@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { Form } from "semantic-ui-react";
 import ListingForm from "./ListingForm";
@@ -68,25 +69,42 @@ function Update({ history, listing, user, updateListing }) {
     helpers.openImgWidget(state, isFormFilled, func.setState, setStatus);
 
   return (
-    <StyledContainer
-      topHeader="Edit your Listing"
-      btmHeader="Please fill in all required fields"
-    >
-      <Form loading={isProcessing || !listing} error={errorStatus}>
-        <ListingForm
-          {...state}
-          handleChange={func.handleChange}
-          handleSubmit={func.handleSubmit}
-          handleImgDeletion={deleteOldImages}
-          openImgWidget={handleWidget}
-          errorStatus={errorStatus}
-          isFormFilled={isFormFilled}
-          btnText="Edit Listing"
-          pronoun={!gender ? "He/She's" : gender === "Male" ? "He's" : "She's"}
+    <>
+      <Helmet>
+        <title>{`Edit ${state.petName} - Rescue Korea`}</title>
+        <meta name="description" content="Edit your pet adoption listing" />
+        <meta property="og:title" content={`Edit ${state.petName} - Rescue Korea`} />
+        <meta property="og:description" content="Edit your pet adoption listing" />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
         />
-        <FormMessages errorMsg={errorMsg} errorStatus={errorStatus} />
-      </Form>
-    </StyledContainer>
+        <meta
+          property="og:url"
+          content={`https://rescuekorea.netlify.com/listing/${state._id}/edit`}
+        />
+      </Helmet>
+
+      <StyledContainer
+        topHeader="Edit your Listing"
+        btmHeader="Please fill in all required fields"
+      >
+        <Form loading={isProcessing || !listing} error={errorStatus}>
+          <ListingForm
+            {...state}
+            handleChange={func.handleChange}
+            handleSubmit={func.handleSubmit}
+            handleImgDeletion={deleteOldImages}
+            openImgWidget={handleWidget}
+            errorStatus={errorStatus}
+            isFormFilled={isFormFilled}
+            btnText="Edit Listing"
+            pronoun={!gender ? "He/She's" : gender === "Male" ? "He's" : "She's"}
+          />
+          <FormMessages errorMsg={errorMsg} errorStatus={errorStatus} />
+        </Form>
+      </StyledContainer>
+    </>
   );
 }
 

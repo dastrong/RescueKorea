@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { Form } from "semantic-ui-react";
 import ListingForm from "./ListingForm";
@@ -54,25 +55,45 @@ function Create({ history, user, createListing }) {
     helpers.openImgWidget(state, isFormFilled, func.setState, setStatus);
 
   return (
-    <StyledContainer
-      topHeader="Create a Listing"
-      btmHeader="Please fill in all required fields"
-    >
-      <Form loading={isProcessing} error={errorStatus}>
-        <ListingForm
-          {...state}
-          handleChange={func.handleChange}
-          handleSubmit={func.handleSubmit}
-          handleImgDeletion={deleteNewImages}
-          openImgWidget={handleWidget}
-          errorStatus={errorStatus}
-          isFormFilled={isFormFilled}
-          btnText="Submit Listing"
-          pronoun={!gender ? "He/She's" : gender === "Male" ? "He's" : "She's"}
+    <>
+      <Helmet>
+        <title>Create Listing - Rescue Korea</title>
+        <meta
+          name="description"
+          content="Create a pet adoption listing for other to view"
         />
-        <FormMessages errorMsg={errorMsg} errorStatus={errorStatus} />
-      </Form>
-    </StyledContainer>
+        <meta property="og:title" content="Create Listing - Rescue Korea" />
+        <meta
+          property="og:description"
+          content="Create a pet adoption listing for other to view"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
+        />
+        <meta property="og:url" content="https://rescuekorea.netlify.com/create" />
+      </Helmet>
+
+      <StyledContainer
+        topHeader="Create a Listing"
+        btmHeader="Please fill in all required fields"
+      >
+        <Form loading={isProcessing} error={errorStatus}>
+          <ListingForm
+            {...state}
+            handleChange={func.handleChange}
+            handleSubmit={func.handleSubmit}
+            handleImgDeletion={deleteNewImages}
+            openImgWidget={handleWidget}
+            errorStatus={errorStatus}
+            isFormFilled={isFormFilled}
+            btnText="Submit Listing"
+            pronoun={!gender ? "He/She's" : gender === "Male" ? "He's" : "She's"}
+          />
+          <FormMessages errorMsg={errorMsg} errorStatus={errorStatus} />
+        </Form>
+      </StyledContainer>
+    </>
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-// import { Helmet } from "react-helmet";
 import Policy from "./_static/Policy";
 import Error from "./_static/Error";
 import BillBoard from "./_static/BillBoard";

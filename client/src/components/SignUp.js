@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Input, Message, Checkbox } from "semantic-ui-react";
@@ -61,101 +62,121 @@ function SignUp({ handleLogin }) {
   }
 
   return (
-    <StyledContainer
-      topHeader="Create an Account"
-      btmHeader={<Link to="/login">Already have an account? Log in here.</Link>}
-    >
-      <Form
-        loading={isProcessing}
-        className="auth-form"
-        success={successStatus}
-        error={errorStatus}
-        warning={!isValidPass && password.length > 7 && confirmPassword.length > 7}
-        onSubmit={func.handleSubmit}
+    <>
+      <Helmet>
+        <title>Sign Up - Rescue Korea</title>
+        <meta
+          name="description"
+          content="Sign up to create and share your pet adoption listing"
+        />
+        <meta property="og:title" content="Sign Up - Rescue Korea" />
+        <meta
+          property="og:description"
+          content="Sign up to create and share your pet adoption listing"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
+        />
+        <meta property="og:url" content="https://rescuekorea.netlify.com/signup" />
+      </Helmet>
+
+      <StyledContainer
+        topHeader="Create an Account"
+        btmHeader={<Link to="/login">Already have an account? Log in here.</Link>}
       >
-        <Form.Group widths="equal">
-          <Form.Field>
-            <Input
-              label={{ icon: fnIcon, color: fnColor }}
-              labelPosition="right corner"
-              placeholder="Full Name"
-              name="fullName"
-              value={fullName}
-              onChange={func.handleChange}
+        <Form
+          loading={isProcessing}
+          className="auth-form"
+          success={successStatus}
+          error={errorStatus}
+          warning={!isValidPass && password.length > 7 && confirmPassword.length > 7}
+          onSubmit={func.handleSubmit}
+        >
+          <Form.Group widths="equal">
+            <Form.Field>
+              <Input
+                label={{ icon: fnIcon, color: fnColor }}
+                labelPosition="right corner"
+                placeholder="Full Name"
+                name="fullName"
+                value={fullName}
+                onChange={func.handleChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                label={{ icon: emIcon, color: emColor }}
+                labelPosition="right corner"
+                placeholder="Email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={func.handleChange}
+              />
+            </Form.Field>
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Field>
+              <Input
+                label={{ icon: pwIcon, color: pwColor }}
+                labelPosition="right corner"
+                type="password"
+                placeholder="Password (min. 8 characters)"
+                name="password"
+                value={password}
+                onChange={func.handleChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                label={{ icon: pwIcon, color: pwColor }}
+                labelPosition="right corner"
+                type="password"
+                placeholder="Confirm Password (min. 8 characters)"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={func.handleChange}
+              />
+            </Form.Field>
+          </Form.Group>
+          <Message warning hidden={isValidPass} header="Passwords do not match" />
+          <Form.Field inline required>
+            <Checkbox
+              name="isAgreed"
+              checked={isAgreed}
+              onClick={() => toggleIsAgreed(!isAgreed)}
+              label={
+                <label>
+                  I Agree to the <Link to="/policy">Listing Policies</Link>
+                </label>
+              }
             />
           </Form.Field>
-          <Form.Field>
-            <Input
-              label={{ icon: emIcon, color: emColor }}
-              labelPosition="right corner"
-              placeholder="Email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={func.handleChange}
-            />
-          </Form.Field>
-        </Form.Group>
-        <Form.Group widths="equal">
-          <Form.Field>
-            <Input
-              label={{ icon: pwIcon, color: pwColor }}
-              labelPosition="right corner"
-              type="password"
-              placeholder="Password (min. 8 characters)"
-              name="password"
-              value={password}
-              onChange={func.handleChange}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Input
-              label={{ icon: pwIcon, color: pwColor }}
-              labelPosition="right corner"
-              type="password"
-              placeholder="Confirm Password (min. 8 characters)"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={func.handleChange}
-            />
-          </Form.Field>
-        </Form.Group>
-        <Message warning hidden={isValidPass} header="Passwords do not match" />
-        <Form.Field inline required>
-          <Checkbox
-            name="isAgreed"
-            checked={isAgreed}
-            onClick={() => toggleIsAgreed(!isAgreed)}
-            label={
-              <label>
-                I Agree to the <Link to="/policy">Listing Policies</Link>
-              </label>
-            }
+          <ReCAPTCHA
+            sitekey={process.env.REACT_APP_CAPTCHA_KEY}
+            onChange={() => setCaptcha(true)}
+            onExpired={() => setCaptcha(false)}
+            className="recaptcha"
           />
-        </Form.Field>
-        <ReCAPTCHA
-          sitekey={process.env.REACT_APP_CAPTCHA_KEY}
-          onChange={() => setCaptcha(true)}
-          onExpired={() => setCaptcha(false)}
-          className="recaptcha"
-        />
-        <Form.Button
-          color="purple"
-          size="big"
-          type="submit"
-          content={isProcessing ? "Processing" : "Submit"}
-          // SWITCH - for production
-          // disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed || !validCaptcha}
-          disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed}
-        />
-        <FormMessages
-          successStatus={successStatus}
-          successMsg={`Thanks for joining, ${activeUser}!`}
-          errorStatus={errorStatus}
-          errorMsg={errorMsg}
-        />
-      </Form>
-    </StyledContainer>
+          <Form.Button
+            color="purple"
+            size="big"
+            type="submit"
+            content={isProcessing ? "Processing" : "Submit"}
+            // SWITCH - for production
+            // disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed || !validCaptcha}
+            disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed}
+          />
+          <FormMessages
+            successStatus={successStatus}
+            successMsg={`Thanks for joining, ${activeUser}!`}
+            errorStatus={errorStatus}
+            errorMsg={errorMsg}
+          />
+        </Form>
+      </StyledContainer>
+    </>
   );
 }
 

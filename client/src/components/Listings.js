@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { Grid, Container } from "semantic-ui-react";
 import Cards from "./_reusable/Cards";
@@ -57,38 +58,58 @@ function Listings({ listings, isLoading }) {
   const lastItemNum = activePage * perPage;
   const currentPageListings = filteredListings.slice(lastItemNum - perPage, lastItemNum);
   return (
-    <Container>
-      <Grid centered stackable columns={16}>
-        {(isLoading || !!filteredListings.length) && (
-          <Grid.Column width={4}>
-            <ListingsFilterBox
-              isLoading={isLoading}
-              areBoxesEmpty={filteredListings.length === listings.length}
-              searchParams={searchParams}
-              checkedObj={checkedFilters}
-              searchChange={handleBoxClick}
-              searchClear={() => handleState()}
-            />
-          </Grid.Column>
-        )}
-        <Grid.Column width={12}>
-          {isLoading ? (
-            <Cards showPlaceholders={true} />
-          ) : !filteredListings.length ? (
-            <EmptyPlaceholder />
-          ) : (
-            <>
-              <Cards listings={currentPageListings} />
-              <ListingsPagination
-                activePage={activePage}
-                totalPages={totalPages}
-                handleChange={handlePageChange}
+    <>
+      <Helmet>
+        <title>View All Listings - Rescue Korea</title>
+        <meta
+          name="description"
+          content="View all pet adoption listings from Rescue Korea"
+        />
+        <meta property="og:title" content="View All Listings - Rescue Korea" />
+        <meta
+          property="og:description"
+          content="View all pet adoption listings on Rescue Korea"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
+        />
+        <meta property="og:url" content="https://rescuekorea.netlify.com/listings" />
+      </Helmet>
+
+      <Container>
+        <Grid centered stackable columns={16}>
+          {(isLoading || !!filteredListings.length) && (
+            <Grid.Column width={4}>
+              <ListingsFilterBox
+                isLoading={isLoading}
+                areBoxesEmpty={filteredListings.length === listings.length}
+                searchParams={searchParams}
+                checkedObj={checkedFilters}
+                searchChange={handleBoxClick}
+                searchClear={() => handleState()}
               />
-            </>
+            </Grid.Column>
           )}
-        </Grid.Column>
-      </Grid>
-    </Container>
+          <Grid.Column width={12}>
+            {isLoading ? (
+              <Cards showPlaceholders={true} />
+            ) : !filteredListings.length ? (
+              <EmptyPlaceholder />
+            ) : (
+              <>
+                <Cards listings={currentPageListings} />
+                <ListingsPagination
+                  activePage={activePage}
+                  totalPages={totalPages}
+                  handleChange={handlePageChange}
+                />
+              </>
+            )}
+          </Grid.Column>
+        </Grid>
+      </Container>
+    </>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { Grid, Container } from "semantic-ui-react";
 import ListingImages from "./Listing/ListingImages";
@@ -46,6 +47,22 @@ function Listing({ listing, isLoading, isOwner, user, history, deleteListing }) 
 
   return (
     <div className="listing-container">
+      {petInfo._id && (
+        <Helmet>
+          <title>{`Meet ${petInfo.petName} - Rescue Korea`}</title>
+          <meta
+            name="description"
+            content="The New Rescue Korea - Pet adoptions in South Korea"
+          />
+          <meta property="og:title" content={`Meet ${petInfo.petName} - Rescue Korea`} />
+          <meta property="og:description" content={petInfo.description} />
+          <meta property="og:image" content={petInfo.images[0].url} />
+          <meta
+            property="og:url"
+            content={`https://rescuekorea.netlify.com/listing/${petInfo._id}`}
+          />
+        </Helmet>
+      )}
       <Container>
         <Grid stackable>
           <Grid.Row columns={16}>

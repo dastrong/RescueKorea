@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import StyledContainer from "../_reusable/StyledContainer";
 import { Grid, Button, Icon, Header, Divider, Responsive } from "semantic-ui-react";
@@ -36,43 +37,63 @@ function CustomQuote() {
 }
 
 export default () => (
-  <StyledContainer topHeader="The New Rescue Korea" btmHeader={<CustomQuote />}>
-    <Grid columns={2} stackable textAlign="center" style={{ margin: "10px 0 0" }}>
-      <Grid.Row verticalAlign="middle">
-        <Grid.Column>
-          <Header icon>
-            <Icon name="search" style={icnStyle} />
-            Looking to adopt?
-            <Button
-              as={Link}
-              to="/listings"
-              size="large"
-              color="blue"
-              content="View Listings"
-              style={btnStyle}
-            />
-          </Header>
-        </Grid.Column>
-        <Grid.Column>
-          <Header icon>
-            <Icon name="upload" style={icnStyle} />
-            Have an animal to share?
-            <Button
-              as={Link}
-              to="/create"
-              size="large"
-              color="green"
-              content="Create Listing"
-              style={btnStyle}
-            />
-          </Header>
-        </Grid.Column>
-        <Responsive minWidth="768">
-          <Divider vertical style={divStyle}>
-            Or
-          </Divider>
-        </Responsive>
-      </Grid.Row>
-    </Grid>
-  </StyledContainer>
+  <>
+    <Helmet>
+      <title>Rescue Korea</title>
+      <meta
+        name="description"
+        content="The New Rescue Korea - Pet adoptions in South Korea"
+      />
+      <meta property="og:title" content="Rescue Korea" />
+      <meta
+        property="og:description"
+        content="The New Rescue Korea - Pet adoptions in South Korea"
+      />
+      <meta
+        property="og:image"
+        content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
+      />
+      <meta property="og:url" content="https://rescuekorea.netlify.com" />
+    </Helmet>
+
+    <StyledContainer topHeader="The New Rescue Korea" btmHeader={<CustomQuote />}>
+      <Grid columns={2} stackable textAlign="center" style={{ margin: "10px 0 0" }}>
+        <Grid.Row verticalAlign="middle">
+          <Grid.Column>
+            <Header icon>
+              <Icon name="search" style={icnStyle} />
+              Looking to adopt?
+              <Button
+                as={Link}
+                to="/listings"
+                size="large"
+                color="blue"
+                content="View Listings"
+                style={btnStyle}
+              />
+            </Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header icon>
+              <Icon name="upload" style={icnStyle} />
+              Have an animal to share?
+              <Button
+                as={Link}
+                to="/create"
+                size="large"
+                color="green"
+                content="Create Listing"
+                style={btnStyle}
+              />
+            </Header>
+          </Grid.Column>
+          <Responsive minWidth="768">
+            <Divider vertical style={divStyle}>
+              Or
+            </Divider>
+          </Responsive>
+        </Grid.Row>
+      </Grid>
+    </StyledContainer>
+  </>
 );

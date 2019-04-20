@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { Form } from "semantic-ui-react";
 import StyledContainer from "./_reusable/StyledContainer";
@@ -64,70 +65,90 @@ function Contact({ name, email }) {
   }
 
   return (
-    <StyledContainer topHeader="Contact Us" btmHeader="Please fill out the form below">
-      <Form
-        name="contact"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        onSubmit={func.handleSubmit}
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="hidden" name="bot-field" onChange={func.handleChange} />
-        <Form.Group widths="equal">
+    <>
+      <Helmet>
+        <title>Contact Us - Rescue Korea</title>
+        <meta
+          name="description"
+          content="If you have any questions, concerns or technical issues, please contact us here"
+        />
+        <meta property="og:title" content="Contact Us - Rescue Korea" />
+        <meta
+          property="og:description"
+          content="If you have any questions, concerns or technical issues, please contact us here"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
+        />
+        <meta property="og:url" content="https://rescuekorea.netlify.com/contact" />
+      </Helmet>
+
+      <StyledContainer topHeader="Contact Us" btmHeader="Please fill out the form below">
+        <Form
+          name="contact"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={func.handleSubmit}
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="bot-field" onChange={func.handleChange} />
+          <Form.Group widths="equal">
+            <Form.Input
+              error={status.errorStatus && !state.name}
+              label="Name"
+              name="name"
+              placeholder="Name"
+              value={state.name}
+              onChange={func.handleChange}
+            />
+            <Form.Input
+              error={status.errorStatus && !state.email}
+              type="email"
+              label="Email"
+              name="email"
+              placeholder="Email"
+              value={state.email}
+              onChange={func.handleChange}
+            />
+          </Form.Group>
           <Form.Input
-            error={status.errorStatus && !state.name}
-            label="Name"
-            name="name"
-            placeholder="Name"
-            value={state.name}
+            error={status.errorStatus && !state.subject}
+            label="Subject"
+            name="subject"
+            placeholder="Subject"
+            value={state.subject}
             onChange={func.handleChange}
           />
-          <Form.Input
-            error={status.errorStatus && !state.email}
-            type="email"
-            label="Email"
-            name="email"
-            placeholder="Email"
-            value={state.email}
+          <Form.TextArea
+            error={status.errorStatus && !state.content}
+            autoHeight
+            label="Question"
+            name="content"
+            rows="4"
+            placeholder="Your question here"
+            value={state.content}
             onChange={func.handleChange}
           />
-        </Form.Group>
-        <Form.Input
-          error={status.errorStatus && !state.subject}
-          label="Subject"
-          name="subject"
-          placeholder="Subject"
-          value={state.subject}
-          onChange={func.handleChange}
-        />
-        <Form.TextArea
-          error={status.errorStatus && !state.content}
-          autoHeight
-          label="Question"
-          name="content"
-          rows="4"
-          placeholder="Your question here"
-          value={state.content}
-          onChange={func.handleChange}
-        />
-        <Form.Button
-          size="big"
-          type="submit"
-          disabled={status.successStatus && state.errorStatus}
-          loading={isProcessing}
-          content={
-            isFormFilled ? "Submit" : status.successMsg || status.errorMsg || "Submit"
-          }
-          color={
-            isFormFilled || (!status.successStatus && !status.errorStatus)
-              ? "purple"
-              : status.successStatus
-              ? "green"
-              : "red"
-          }
-        />
-      </Form>
-    </StyledContainer>
+          <Form.Button
+            size="big"
+            type="submit"
+            disabled={status.successStatus && state.errorStatus}
+            loading={isProcessing}
+            content={
+              isFormFilled ? "Submit" : status.successMsg || status.errorMsg || "Submit"
+            }
+            color={
+              isFormFilled || (!status.successStatus && !status.errorStatus)
+                ? "purple"
+                : status.successStatus
+                ? "green"
+                : "red"
+            }
+          />
+        </Form>
+      </StyledContainer>
+    </>
   );
 }
 
