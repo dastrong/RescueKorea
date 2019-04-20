@@ -1,4 +1,3 @@
-// MOVE TO COMPONENTS
 import React from "react";
 import Footer from "./_static/Footer";
 import Disclaimer from "./_static/Disclaimer";
