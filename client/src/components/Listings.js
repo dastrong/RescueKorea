@@ -5,53 +5,20 @@ import Cards from "./_reusable/Cards";
 import EmptyPlaceholder from "./_static/EmptyPlaceholder";
 import ListingsFilterBox from "./Listings/ListingsFilterBox";
 import ListingsPagination from "./Listings/ListingsPagination";
+import { createSearchBoxes, stripListings } from "../helpers/listings";
+import useScreenSize from "../hooks/useScreenSize";
 
-const perPage = 6;
-const labels = ["location", "gender", "breed", "color"];
-// returns an array of objects with a label string and value array
-// value array is separated by the
-function createSearchBoxes(listings) {
-  const objSortedByLabels = listings.reduce(
-    (acc, cVal) => {
-      // breaks down listings according to labels array w/ count
-      labels.forEach(label => {
-        acc[label][cVal[label]]
-          ? (acc[label][cVal[label]] += 1)
-          : (acc[label][cVal[label]] = 1);
-      });
-      return acc;
-    },
-    {
-      location: {},
-      gender: {},
-      breed: {},
-      color: {},
-    }
-  );
-  return labels.map(label => ({
-    label,
-    values: Object.entries(objSortedByLabels[label]),
-  }));
-}
-
-function stripListings(listings) {
-  return listings.map(({ _id, petName, gender, location, images, breed, color }) => ({
-    _id,
-    petName,
-    gender,
-    location,
-    breed,
-    color,
-    image: images[0].url,
-  }));
-}
-
-// defaultly exported component
 function Listings({ listings, isLoading }) {
+  const isMobile = useScreenSize();
+  const [perPage, setPerPage] = useState(isMobile ? 3 : 6);
   const [activePage, setPage] = useState(1);
   const [checkedFilters, setFilters] = useState({});
   const [filteredListings, setListings] = useState(listings);
   const [searchParams, setSearchParams] = useState(createSearchBoxes(listings));
+
+  useEffect(() => {
+    setPerPage(isMobile ? 3 : 6);
+  }, [isMobile]);
 
   useEffect(() => {
     setListings(listings);
