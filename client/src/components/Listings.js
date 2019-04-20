@@ -59,19 +59,31 @@ function Listings({ listings, isLoading }) {
   const currentPageListings = filteredListings.slice(lastItemNum - perPage, lastItemNum);
   return (
     <>
-      <Helmet>
-        <title>View All Listings - Rescue Korea</title>
-        <meta
-          name="description"
-          content="View all pet adoption listings from Rescue Korea"
-        />
-        <meta property="og:title" content="View All Listings - Rescue Korea" />
-        <meta
-          property="og:description"
-          content="View all pet adoption listings on Rescue Korea"
-        />
-        <meta property="og:url" content="https://rescuekorea.netlify.com/listings" />
-      </Helmet>
+      <Helmet
+        title="View All Listings - Rescue Korea"
+        meta={[
+          {
+            name: "description",
+            content: "View all pet adoption listings from Rescue Korea",
+          },
+          {
+            property: "og:title",
+            content: "View All Listings - Rescue Korea",
+          },
+          {
+            property: "og:description",
+            content: "View all pet adoption listings on Rescue Korea",
+          },
+          {
+            property: "og:title",
+            content: "View All Listings - Rescue Korea",
+          },
+          {
+            property: "og:url",
+            content: "https://rescuekorea.netlify.com/listings",
+          },
+        ]}
+      />
 
       <Container>
         <Grid
