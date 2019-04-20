@@ -1,8 +1,4 @@
-import { SET_LISTINGS_LOADING, FETCH_LISTINGS } from "../actionTypes";
-
-export const fetchListings = () => ({
-  type: FETCH_LISTINGS,
-});
+import { SET_LISTINGS_LOADING } from "../actionTypes";
 
 export const setListingsLoading = bool => ({
   type: SET_LISTINGS_LOADING,
