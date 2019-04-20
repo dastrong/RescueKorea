@@ -107,6 +107,7 @@ const cloudOpts = {
   uploadPreset: "default",
   sources: ["local", "camera", "facebook", "instagram"],
   cropping: true,
+  croppingAspectRatio: 1.33,
   croppingShowBackButton: true,
   folder: process.env.REACT_APP_CLOUD_FOLDER,
   clientAllowedFormats: ["png", "jpeg"],
