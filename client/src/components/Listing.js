@@ -65,12 +65,14 @@ function Listing({ listing, isLoading, isOwner, user, history, deleteListing }) 
           </Grid.Row>
         </Grid>
       </Container>
-      <ImageShowCase
-        images={petInfo.images}
-        isOpen={isShowCaseOpen}
-        targetImgId={targetImgId}
-        closeImageShowCase={() => toggleShowCase(false)}
-      />
+      {isShowCaseOpen && (
+        <ImageShowCase
+          images={petInfo.images}
+          isOpen={isShowCaseOpen}
+          targetImgId={targetImgId}
+          closeImageShowCase={() => toggleShowCase(false)}
+        />
+      )}
     </div>
   );
 }

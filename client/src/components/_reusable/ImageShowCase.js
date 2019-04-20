@@ -18,7 +18,7 @@ export default function({ targetImgId, isOpen, closeImageShowCase, images }) {
     <Modal basic open={isOpen} className="img-showcase">
       <Modal.Content image>
         <Segment inverted color="olive">
-          <ImgWithPlaceholder src={images[imgId]} alt={"pet-" + imgId} />
+          <ImgWithPlaceholder src={images[imgId].url} alt={"pet-" + imgId} />
           <Rail
             as={Icon}
             onClick={handlePrev}

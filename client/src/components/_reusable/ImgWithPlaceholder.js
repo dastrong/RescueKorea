@@ -20,24 +20,5 @@ function ImgWithPlaceHolder(props) {
     </>
   );
 }
-// class ImgWithPlaceHolder extends Component {
-//   state = { isLoading: true };
-
-//   handleLoading = () => this.setState({ isLoading: false });
-
-//   render() {
-//     const { isLoading } = this.state;
-//     return (
-//       <Fragment>
-//         <Image {...this.props} hidden={isLoading} onLoad={this.handleLoading} />
-//         {isLoading && (
-//           <Placeholder style={{ maxWidth: "100%" }}>
-//             <Placeholder.Image rectangular />
-//           </Placeholder>
-//         )}
-//       </Fragment>
-//     );
-//   }
-// }
 
 export default ImgWithPlaceHolder;
