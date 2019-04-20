@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import "react-app-polyfill/ie11";
 import "./semantic/dist/semantic.min.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import ReactGA from "react-ga";
 import { render } from "react-snapshot";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -14,9 +14,12 @@ import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
 function Site() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     // load our analytics
     ReactGA.initialize(process.env.REACT_APP_ANALYTICS_KEY);
+  }, []);
+
+  useEffect(() => {
     // wakes up the server - grab all listings / verifyUser
     store.dispatch(getListings());
     store.dispatch(verifyUser());

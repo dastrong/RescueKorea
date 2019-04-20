@@ -5,7 +5,7 @@ import {
   DELETE_LISTING,
 } from "../actionTypes";
 import { apiRequest } from "../../helpers/api";
-import { setListingsLoading } from "./ui";
+import { setListingsLoading, setServerError } from "./ui";
 
 const setListings = listings => ({
   type: SET_LISTINGS,
@@ -35,6 +35,8 @@ export function getListings() {
       dispatch(setListingsLoading(false));
     } catch (err) {
       console.log(err);
+      dispatch(setListingsLoading(false));
+      dispatch(setServerError(true));
     }
   };
 }
