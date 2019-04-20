@@ -169,8 +169,10 @@ function SignUp({ handleLogin }) {
             type="submit"
             content={isProcessing ? "Processing" : "Submit"}
             // SWITCH - for production
-            // disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed || !validCaptcha}
-            disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed}
+            disabled={
+              !isRealEmail || !fullName || !isValidPass || !isAgreed || !validCaptcha
+            }
+            // disabled={!isRealEmail || !fullName || !isValidPass || !isAgreed}
           />
           <FormMessages
             successStatus={successStatus}
