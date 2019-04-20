@@ -2,7 +2,13 @@ import React from "react";
 import { Segment, Header, Container } from "semantic-ui-react";
 
 const Disclaimer = () => (
-  <Segment basic inverted color="pink" style={{ margin: 0, padding: "35px 1.5em" }}>
+  <Segment
+    id="disclaimer"
+    basic
+    inverted
+    color="pink"
+    style={{ margin: 0, padding: "35px 1.5em" }}
+  >
     <Header
       as="h1"
       color="violet"

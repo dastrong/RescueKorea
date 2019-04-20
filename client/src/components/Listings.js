@@ -74,7 +74,12 @@ function Listings({ listings, isLoading }) {
       </Helmet>
 
       <Container>
-        <Grid centered stackable columns={16}>
+        <Grid
+          centered
+          stackable
+          columns={16}
+          style={{ maxWidth: isMobile ? "450px" : "none" }}
+        >
           {(isLoading || !!filteredListings.length) && (
             <Grid.Column width={4}>
               <ListingsFilterBox
