@@ -67,19 +67,27 @@ function LogIn({ handleLogin }) {
 
   return (
     <>
-      <Helmet>
-        <title>Log In - Rescue Korea</title>
-        <meta
-          name="description"
-          content="Log in to create, edit or delete your pet adoption listing"
-        />
-        <meta property="og:title" content="Log In - Rescue Korea" />
-        <meta
-          property="og:description"
-          content="Log in to create, edit or delete your pet adoption listing"
-        />
-        <meta property="og:url" content="https://rescuekorea.netlify.com/login" />
-      </Helmet>
+      <Helmet
+        title="Log In - Rescue Korea"
+        meta={[
+          {
+            name: "description",
+            content: "Log in to create, edit or delete your pet adoption listing",
+          },
+          {
+            property: "og:title",
+            content: "Log In - Rescue Korea",
+          },
+          {
+            property: "og:description",
+            content: "Log in to create, edit or delete your pet adoption listing",
+          },
+          {
+            property: "og:url",
+            content: "https://rescuekorea.netlify.com/login",
+          },
+        ]}
+      />
 
       <StyledContainer
         topHeader="Log into your Account"

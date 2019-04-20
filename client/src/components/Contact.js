@@ -66,19 +66,29 @@ function Contact({ name, email }) {
 
   return (
     <>
-      <Helmet>
-        <title>Contact Us - Rescue Korea</title>
-        <meta
-          name="description"
-          content="If you have any questions, concerns or technical issues, please contact us here"
-        />
-        <meta property="og:title" content="Contact Us - Rescue Korea" />
-        <meta
-          property="og:description"
-          content="If you have any questions, concerns or technical issues, please contact us here"
-        />
-        <meta property="og:url" content="https://rescuekorea.netlify.com/contact" />
-      </Helmet>
+      <Helmet
+        title="Contact Us - Rescue Korea"
+        meta={[
+          {
+            name: "description",
+            content:
+              "If you have any questions, concerns or technical issues, please contact us here",
+          },
+          {
+            property: "og:title",
+            content: "Contact Us - Rescue Korea",
+          },
+          {
+            property: "og:description",
+            content:
+              "If you have any questions, concerns or technical issues, please contact us here",
+          },
+          {
+            property: "og:url",
+            content: "https://rescuekorea.netlify.com/contact",
+          },
+        ]}
+      />
 
       <StyledContainer topHeader="Contact Us" btmHeader="Please fill out the form below">
         <Form

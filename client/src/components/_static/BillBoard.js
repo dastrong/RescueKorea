@@ -38,19 +38,27 @@ function CustomQuote() {
 
 export default () => (
   <>
-    <Helmet>
-      <title>Rescue Korea</title>
-      <meta
-        name="description"
-        content="The New Rescue Korea - Pet adoptions in South Korea"
-      />
-      <meta property="og:title" content="Rescue Korea" />
-      <meta
-        property="og:description"
-        content="The New Rescue Korea - Pet adoptions in South Korea"
-      />
-      <meta property="og:url" content="https://rescuekorea.netlify.com" />
-    </Helmet>
+    <Helmet
+      title="Rescue Korea"
+      meta={[
+        {
+          name: "description",
+          content: "he New Rescue Korea - Pet adoptions in South Korea",
+        },
+        {
+          property: "og:title",
+          content: "Rescue Korea",
+        },
+        {
+          property: "og:description",
+          content: "he New Rescue Korea - Pet adoptions in South Korea",
+        },
+        {
+          property: "og:url",
+          content: "https://rescuekorea.netlify.com/",
+        },
+      ]}
+    />
 
     <StyledContainer topHeader="The New Rescue Korea" btmHeader={<CustomQuote />}>
       <Grid columns={2} stackable textAlign="center" style={{ margin: "10px 0 0" }}>

@@ -14,19 +14,29 @@ export default function Policy() {
 
   return (
     <>
-      <Helmet>
-        <title>Listing Policy - Rescue Korea</title>
-        <meta
-          name="description"
-          content="The policy that all listings must follow. Failure to follow may lead to the removal of your listing."
-        />
-        <meta property="og:title" content="Listing Policy - Rescue Korea" />
-        <meta
-          property="og:description"
-          content="The policy that all listings must follow. Failure to follow may lead to the removal of your listing."
-        />
-        <meta property="og:url" content="https://rescuekorea.netlify.com/policy" />
-      </Helmet>
+      <Helmet
+        title="Listing Policy - Rescue Korea"
+        meta={[
+          {
+            name: "description",
+            content:
+              "The policy that all listings must follow. Failure to follow may lead to the removal of your listing",
+          },
+          {
+            property: "og:title",
+            content: "Listing Policy - Rescue Korea",
+          },
+          {
+            property: "og:description",
+            content:
+              "The policy that all listings must follow. Failure to follow may lead to the removal of your listing",
+          },
+          {
+            property: "og:url",
+            content: "https://rescuekorea.netlify.com/policy",
+          },
+        ]}
+      />
 
       <StyledContainer topHeader="Listing Policy" btmHeader="Follow the guidelines below">
         <Accordion styled className="lp-accordion">

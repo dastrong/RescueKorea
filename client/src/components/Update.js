@@ -70,10 +70,15 @@ function Update({ history, listing, user, updateListing }) {
 
   return (
     <>
-      <Helmet>
-        <title>{`Edit ${state.petName} - Rescue Korea`}</title>
-        <meta name="description" content="Edit your pet adoption listing" />
-      </Helmet>
+      <Helmet
+        title={`Edit ${state.petName} - Rescue Korea`}
+        meta={[
+          {
+            name: "description",
+            content: "Edit your pet adoption listing",
+          },
+        ]}
+      />
 
       <StyledContainer
         topHeader="Edit your Listing"

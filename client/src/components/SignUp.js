@@ -63,19 +63,27 @@ function SignUp({ handleLogin }) {
 
   return (
     <>
-      <Helmet>
-        <title>Sign Up - Rescue Korea</title>
-        <meta
-          name="description"
-          content="Sign up to create and share your pet adoption listing"
-        />
-        <meta property="og:title" content="Sign Up - Rescue Korea" />
-        <meta
-          property="og:description"
-          content="Sign up to create and share your pet adoption listing"
-        />
-        <meta property="og:url" content="https://rescuekorea.netlify.com/signup" />
-      </Helmet>
+      <Helmet
+        title="Sign Up - Rescue Korea"
+        meta={[
+          {
+            name: "description",
+            content: "Sign up to create and share your pet adoption listing",
+          },
+          {
+            property: "og:title",
+            content: "Sign Up - Rescue Korea",
+          },
+          {
+            property: "og:description",
+            content: "Sign up to create and share your pet adoption listing",
+          },
+          {
+            property: "og:url",
+            content: "https://rescuekorea.netlify.com/signup",
+          },
+        ]}
+      />
 
       <StyledContainer
         topHeader="Create an Account"

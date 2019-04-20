@@ -72,11 +72,7 @@ function Listings({ listings, isLoading }) {
           },
           {
             property: "og:description",
-            content: "View all pet adoption listings on Rescue Korea",
-          },
-          {
-            property: "og:title",
-            content: "View All Listings - Rescue Korea",
+            content: "View all pet adoption listings from Rescue Korea",
           },
           {
             property: "og:url",

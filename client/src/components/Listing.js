@@ -48,16 +48,27 @@ function Listing({ listing, isLoading, isOwner, user, history, deleteListing }) 
   return (
     <div className="listing-container">
       {petInfo._id && (
-        <Helmet>
-          <title>{`Meet ${petInfo.petName} - Rescue Korea`}</title>
-          <meta name="description" content={petInfo.description} />
-          <meta property="og:title" content={`Meet ${petInfo.petName} - Rescue Korea`} />
-          <meta property="og:description" content={petInfo.description} />
-          <meta
-            property="og:url"
-            content={`https://rescuekorea.netlify.com/listing/${petInfo._id}`}
-          />
-        </Helmet>
+        <Helmet
+          title={`Meet ${petInfo.petName} - Rescue Korea`}
+          meta={[
+            {
+              name: "description",
+              content: petInfo.description,
+            },
+            {
+              property: "og:title",
+              content: `Meet ${petInfo.petName} - Rescue Korea`,
+            },
+            {
+              property: "og:description",
+              content: petInfo.description,
+            },
+            {
+              property: "og:url",
+              content: `https://rescuekorea.netlify.com/listing/${petInfo._id}`,
+            },
+          ]}
+        />
       )}
       <Container>
         <Grid stackable>

@@ -56,13 +56,15 @@ function Create({ history, user, createListing }) {
 
   return (
     <>
-      <Helmet>
-        <title>Create Listing - Rescue Korea</title>
-        <meta
-          name="description"
-          content="Create a pet adoption listing for other to view"
-        />
-      </Helmet>
+      <Helmet
+        title="Create Listing - Rescue Korea"
+        meta={[
+          {
+            name: "description",
+            content: "Create a pet adoption listing for other to view",
+          },
+        ]}
+      />
 
       <StyledContainer
         topHeader="Create a Listing"
