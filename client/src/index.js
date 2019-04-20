@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import App from "./components/App";
 import store from "./store";
 import { getListings } from "./store/actions/listings";
+import { verifyUser } from "./store/actions/user";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
@@ -16,8 +17,9 @@ function Site() {
   useEffect(() => {
     // load our analytics
     ReactGA.initialize(process.env.REACT_APP_ANALYTICS_KEY);
-    // wakes up the server and grab all listings
-    setTimeout(() => store.dispatch(getListings()), 3000);
+    // wakes up the server - grab all listings / verifyUser
+    store.dispatch(getListings());
+    store.dispatch(verifyUser());
   }, []);
 
   return (

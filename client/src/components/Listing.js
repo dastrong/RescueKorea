@@ -83,6 +83,7 @@ const mapStateToProps = ({ listings, ui, user }, { match }) => {
     listing,
     isLoading: ui.isListingsLoading,
     isOwner:
+      listing[0] &&
       user.isAuthenticated &&
       (user.user.isAdmin || user.user.userId === listing[0].owner.id),
     user: user.user,
