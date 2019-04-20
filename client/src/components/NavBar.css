@@ -16,6 +16,8 @@
 
 .ui.menu.fixed.borderless .nav-header {
   margin: auto;
+  display: flex;
+  align-items: center;
 }
 
 .ui.top.sidebar {

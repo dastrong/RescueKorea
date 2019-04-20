@@ -39,7 +39,7 @@ a {
 }
 
 @media screen and (min-width: 1200px) {
-  .ui.container.styled-container {
+  .top-section > .ui.container {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
