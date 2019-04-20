@@ -48,10 +48,15 @@ router.get("/:id", async (req, res) => {
 // update a post
 router.put("/:id", ownerRequired, async (req, res) => {
 	try {
-		const post = await Post.findByIdAndUpdate(req.params.id, {
-			$set: req.body,
-			new: true,
-		});
+		const post = await Post.findByIdAndUpdate(
+			req.params.id,
+			{
+				$set: req.body,
+			},
+			{
+				new: true,
+			}
+		);
 		res.status(200).json(post);
 	} catch (err) {
 		console.log(err);
