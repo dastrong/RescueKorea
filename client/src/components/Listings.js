@@ -70,10 +70,6 @@ function Listings({ listings, isLoading }) {
           property="og:description"
           content="View all pet adoption listings on Rescue Korea"
         />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
-        />
         <meta property="og:url" content="https://rescuekorea.netlify.com/listings" />
       </Helmet>
 

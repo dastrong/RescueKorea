@@ -77,10 +77,6 @@ function Contact({ name, email }) {
           property="og:description"
           content="If you have any questions, concerns or technical issues, please contact us here"
         />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
-        />
         <meta property="og:url" content="https://rescuekorea.netlify.com/contact" />
       </Helmet>
 

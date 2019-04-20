@@ -50,13 +50,9 @@ function Listing({ listing, isLoading, isOwner, user, history, deleteListing }) 
       {petInfo._id && (
         <Helmet>
           <title>{`Meet ${petInfo.petName} - Rescue Korea`}</title>
-          <meta
-            name="description"
-            content="The New Rescue Korea - Pet adoptions in South Korea"
-          />
+          <meta name="description" content={petInfo.description} />
           <meta property="og:title" content={`Meet ${petInfo.petName} - Rescue Korea`} />
           <meta property="og:description" content={petInfo.description} />
-          <meta property="og:image" content={petInfo.images[0].url} />
           <meta
             property="og:url"
             content={`https://rescuekorea.netlify.com/listing/${petInfo._id}`}

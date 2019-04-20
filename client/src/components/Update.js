@@ -73,16 +73,6 @@ function Update({ history, listing, user, updateListing }) {
       <Helmet>
         <title>{`Edit ${state.petName} - Rescue Korea`}</title>
         <meta name="description" content="Edit your pet adoption listing" />
-        <meta property="og:title" content={`Edit ${state.petName} - Rescue Korea`} />
-        <meta property="og:description" content="Edit your pet adoption listing" />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
-        />
-        <meta
-          property="og:url"
-          content={`https://rescuekorea.netlify.com/listing/${state._id}/edit`}
-        />
       </Helmet>
 
       <StyledContainer

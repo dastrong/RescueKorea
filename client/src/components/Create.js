@@ -62,16 +62,6 @@ function Create({ history, user, createListing }) {
           name="description"
           content="Create a pet adoption listing for other to view"
         />
-        <meta property="og:title" content="Create Listing - Rescue Korea" />
-        <meta
-          property="og:description"
-          content="Create a pet adoption listing for other to view"
-        />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
-        />
-        <meta property="og:url" content="https://rescuekorea.netlify.com/create" />
       </Helmet>
 
       <StyledContainer

@@ -49,10 +49,6 @@ export default () => (
         property="og:description"
         content="The New Rescue Korea - Pet adoptions in South Korea"
       />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
-      />
       <meta property="og:url" content="https://rescuekorea.netlify.com" />
     </Helmet>
 

@@ -74,10 +74,6 @@ function SignUp({ handleLogin }) {
           property="og:description"
           content="Sign up to create and share your pet adoption listing"
         />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dastrong/image/upload/v1554288174/petChingus/UX/faviconRK.png"
-        />
         <meta property="og:url" content="https://rescuekorea.netlify.com/signup" />
       </Helmet>
 
