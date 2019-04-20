@@ -3,13 +3,6 @@ import { SET_USER, REMOVE_USER } from "../actionTypes";
 const initialState = {
   isAuthenticated: null,
   user: {},
-  // user: {
-  //   email: "",
-  //   fullName: "",
-  //   isAdmin: false,
-  //   token: "",
-  //   userId: "",
-  // },
 };
 
 export default (state = initialState, action) => {
