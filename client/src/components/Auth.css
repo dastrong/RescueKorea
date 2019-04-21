@@ -21,6 +21,7 @@
   min-width: 205px;
   margin: 5px 0;
   min-height: 50px;
+  padding: 7px;
 }
 
 .social-auth.ui.google {
@@ -34,7 +35,6 @@
 @media screen and (max-width: 767px) {
   .social-auth.ui.button {
     width: 100%;
-    margin: 5px 0;
   }
   .social-auth.ui.google {
     margin-left: 0;

@@ -9,6 +9,7 @@ import StyledContainer from "./_reusable/StyledContainer";
 import FormMessages from "./_reusable/FormMessages";
 import useFormState from "../hooks/useFormState";
 import useFormStatus from "../hooks/useFormStatus";
+import useScreenSize from "../hooks/useScreenSize";
 import { apiRequest } from "../helpers/api";
 import { addGooEvent } from "../helpers/analytics";
 import { handleLogin } from "../store/actions/user";
@@ -18,6 +19,7 @@ const initState = { email: "", password: "" };
 const initStatus = { successStatus: null, errorStatus: null, errorMsg: null };
 
 function LogIn({ handleLogin }) {
+  const isMobile = useScreenSize();
   const [activeUser, setActiveUser] = useState("");
 
   const { state, isProcessing, ...func } = useFormState(initState, login);
@@ -132,21 +134,23 @@ function LogIn({ handleLogin }) {
           />
         </Form>
         <Divider section horizontal content="OR" />
-        <FacebookLogin
-          appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-          fields="email"
-          callback={resp => socialLogin(resp.email)}
-          render={renderProps => (
-            <Button
-              size="big"
-              color="facebook"
-              icon="facebook"
-              className="social-auth"
-              content="Login with Facebook"
-              onClick={resp => renderProps.onClick(resp)}
-            />
-          )}
-        />
+        {!isMobile && (
+          <FacebookLogin
+            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+            fields="email"
+            callback={resp => socialLogin(resp.email)}
+            render={renderProps => (
+              <Button
+                size="big"
+                color="facebook"
+                icon="facebook"
+                className="social-auth"
+                content="Login with Facebook"
+                onClick={resp => renderProps.onClick(resp)}
+              />
+            )}
+          />
+        )}
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           onSuccess={resp => socialLogin(resp.profileObj.email)}
