@@ -39,6 +39,7 @@ function LogIn({ handleLogin }) {
 
   async function socialLogin(email) {
     try {
+      func.setProcessing(true);
       if (!email) throw new Error("Sorry, something went wrong");
       const body = JSON.stringify({ email });
       const user = await apiRequest("/users/social", { method: "POST", body });
