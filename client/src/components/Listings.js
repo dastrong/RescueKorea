@@ -123,7 +123,7 @@ function Listings({ listings, isLoading }) {
 }
 
 const mapStateToProps = state => ({
-  listings: stripListings(state.listings),
+  listings: stripListings(state.listings).reverse(),
   isLoading: state.ui.isListingsLoading,
 });
 

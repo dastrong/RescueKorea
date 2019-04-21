@@ -43,7 +43,7 @@ export default () => (
       meta={[
         {
           name: "description",
-          content: "he New Rescue Korea - Pet adoptions in South Korea",
+          content: "The New Rescue Korea - Pet adoptions in South Korea",
         },
         {
           property: "og:title",
@@ -51,7 +51,7 @@ export default () => (
         },
         {
           property: "og:description",
-          content: "he New Rescue Korea - Pet adoptions in South Korea",
+          content: "The New Rescue Korea - Pet adoptions in South Korea",
         },
         {
           property: "og:url",
