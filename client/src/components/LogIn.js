@@ -134,24 +134,23 @@ function LogIn({ handleLogin }) {
           />
         </Form>
         <Divider section horizontal content="OR" />
-        {/* {!isMobile && ( */}
-        <FacebookLogin
-          appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-          fields="email"
-          redirectUri={window.location.host}
-          callback={resp => socialLogin(resp.email)}
-          render={renderProps => (
-            <Button
-              size="big"
-              color="facebook"
-              icon="facebook"
-              className="social-auth"
-              content="Login with Facebook"
-              onClick={resp => renderProps.onClick(resp)}
-            />
-          )}
-        />
-        {/* )} */}
+        {!isMobile && (
+          <FacebookLogin
+            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+            fields="email"
+            callback={resp => socialLogin(resp.email)}
+            render={renderProps => (
+              <Button
+                size="big"
+                color="facebook"
+                icon="facebook"
+                className="social-auth"
+                content="Login with Facebook"
+                onClick={resp => renderProps.onClick(resp)}
+              />
+            )}
+          />
+        )}
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           onSuccess={resp => socialLogin(resp.profileObj.email)}
