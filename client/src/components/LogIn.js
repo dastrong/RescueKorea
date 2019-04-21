@@ -9,6 +9,7 @@ import StyledContainer from "./_reusable/StyledContainer";
 import FormMessages from "./_reusable/FormMessages";
 import useFormState from "../hooks/useFormState";
 import useFormStatus from "../hooks/useFormStatus";
+import useScreenSize from "../hooks/useScreenSize";
 import { apiRequest } from "../helpers/api";
 import { addGooEvent } from "../helpers/analytics";
 import { handleLogin } from "../store/actions/user";
@@ -18,6 +19,7 @@ const initState = { email: "", password: "" };
 const initStatus = { successStatus: null, errorStatus: null, errorMsg: null };
 
 function LogIn({ handleLogin }) {
+  const isMobile = useScreenSize();
   const [activeUser, setActiveUser] = useState("");
 
   const { state, isProcessing, ...func } = useFormState(initState, login);
@@ -39,6 +41,7 @@ function LogIn({ handleLogin }) {
 
   async function socialLogin(email) {
     try {
+      func.setProcessing(true);
       if (!email) throw new Error("Sorry, something went wrong");
       const body = JSON.stringify({ email });
       const user = await apiRequest("/users/social", { method: "POST", body });
@@ -131,9 +134,11 @@ function LogIn({ handleLogin }) {
           />
         </Form>
         <Divider section horizontal content="OR" />
+        {/* {!isMobile && ( */}
         <FacebookLogin
           appId={process.env.REACT_APP_FACEBOOK_APP_ID}
           fields="email"
+          redirectUri={window.location.host}
           callback={resp => socialLogin(resp.email)}
           render={renderProps => (
             <Button
@@ -146,6 +151,7 @@ function LogIn({ handleLogin }) {
             />
           )}
         />
+        {/* )} */}
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           onSuccess={resp => socialLogin(resp.profileObj.email)}

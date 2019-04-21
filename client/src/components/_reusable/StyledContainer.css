@@ -27,10 +27,6 @@
   color: #d52484 !important;
 }
 
-.styled-container .ui.message {
-  margin: 14px auto;
-}
-
 @media screen and (min-width: 768px) {
   .styled-container.ui.container {
     max-width: 725px !important;
